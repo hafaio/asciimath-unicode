@@ -1,0 +1,28 @@
+{
+  "name": "Ascii Math Unicode",
+  "description": "A tool for rendering selected ascii math as unicode",
+  "version": "1.0",
+  "options_page": "options.html",
+  "permissions": ["activeTab", "scripting", "contextMenus", "storage"],
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "action": {
+    "default_title": "Convert selected ascii math"
+  },
+  "commands": {
+    "ascii-math-unicode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K"
+      },
+      "description": "Convert current selection from ascii math to unicode"
+    }
+  },
+  "icons": {
+    "16": "/images/am16.png",
+    "32": "/images/am32.png",
+    "48": "/images/am48.png",
+    "128": "/images/am128.png"
+  },
+  "manifest_version": 3
+}
