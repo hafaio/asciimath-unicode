@@ -1,6 +1,8 @@
 Ascii Math Unicode
 ==================
 
+[![tests](https://github.com/brinkbotlabs/ascii-math-unicode/actions/workflows/node.js.yml/badge.svg)](https://github.com/brinkbotlabs/ascii-math-unicode/actions/workflows/node.js.yml)
+
 A chrome extension for rendering [ascii math](http://asciimath.org/) as unicode.
 
 When installed, you can select text and then by clicking the extension, opening the context menu, or activing a hotkey, convery the text into unicode.
