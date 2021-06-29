@@ -1,6 +1,7 @@
 function convertSelectionOnTab(tab: chrome.tabs.Tab): void {
   if (tab.id) {
-    chrome.scripting.executeScript({
+    // forget about this promise
+    void chrome.scripting.executeScript({
       target: { tabId: tab.id, allFrames: true },
       files: ["dist/convert.bundle.js"],
     });
