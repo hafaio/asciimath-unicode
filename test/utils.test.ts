@@ -11,7 +11,7 @@ test("assert()", () => {
 });
 
 test("nn()", () => {
-  expect(nn(5)).toEqual(5);
+  expect(nn(5)).toBe(5);
   expect(() => nn(undefined)).toThrow("internal error");
   expect(() => nn(null)).toThrow("internal error");
 });

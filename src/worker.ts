@@ -22,9 +22,10 @@ chrome.commands.onCommand.addListener((command, tab) => {
 });
 
 // add convert context menu
-const contextMenuId = chrome.contextMenus.create(
+const contextMenuId = "context menu";
+chrome.contextMenus.create(
   {
-    id: "context menu",
+    id: contextMenuId,
     title: "Render selection as ascii math",
     contexts: ["selection"],
   },

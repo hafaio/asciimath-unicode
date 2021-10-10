@@ -97,7 +97,7 @@ export default function OptionsPage(): ReactElement {
 
   // persist options when changed
   useEffect(() => {
-    if (options) chrome.storage.sync.set(options);
+    if (options) void chrome.storage.sync.set(options);
   }, [options]);
 
   const body = options ? (
