@@ -27,3 +27,16 @@ Notes
 In the process of creating this, I wrote an ascii math parser from scratch.
 Parser combinators had some issues differentiating symbols appropriately, and traditional CFGs had trouble with the greedy apporach to ascii math (e.g. it'll interpret `sin )` as just the token `sin` with no argument, instead of failing to parse because it doesn't have an argument.
 Most javascript CFGs also require specfying the grammar in a text file, which is somewhat obnoxious given the large symbol tables associated with ascii math.
+
+Development
+-----------
+
+Compile a local version for development testing
+```
+yarn build
+```
+
+Compile a zip for upload to the store
+```
+yarn pack
+```

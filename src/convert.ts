@@ -1,6 +1,6 @@
-import parse from "../lib/parse";
-import render from "../lib/render";
-import { isOptions, defaultOptions } from "../lib/options";
+import parse from "./parse";
+import render from "./render";
+import { isOptions, defaultOptions } from "./options";
 
 // replace selection on page
 const selection = getSelection();

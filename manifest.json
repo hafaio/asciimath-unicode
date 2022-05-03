@@ -2,7 +2,7 @@
   "name": "Ascii Math Unicode",
   "description": "A tool for rendering selected ascii math as unicode",
   "version": "1.1",
-  "options_page": "options.html",
+  "options_page": "out/index.html",
   "permissions": ["activeTab", "scripting", "contextMenus", "storage"],
   "background": {
     "service_worker": "service_worker.js"

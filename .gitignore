@@ -1,8 +1,31 @@
-# Node
-/node_modules
-/yarn-error.log
-/coverage
+# Yarn #
+########
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
-# Generated
-/ascii-math-unicode.zip
+# Jest #
+########
+coverage
+
+# Eslint #
+##########
+.eslintcache
+
+# TypeScript #
+##############
+tsconfig.tsbuildinfo
+
+# Next #
+########
+.next
+
+# Artifacts #
+#############
 *.js
+*.zip
+out

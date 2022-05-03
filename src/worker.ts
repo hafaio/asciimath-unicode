@@ -3,7 +3,7 @@ function convertSelectionOnTab(tab: chrome.tabs.Tab): void {
     // forget about this promise
     void chrome.scripting.executeScript({
       target: { tabId: tab.id, allFrames: true },
-      files: ["dist/convert.bundle.js"],
+      files: ["convert.js"],
     });
   } else {
     console.error("clicked on tab without an id");
@@ -22,7 +22,7 @@ chrome.commands.onCommand.addListener((command, tab) => {
 });
 
 // add convert context menu
-const contextMenuId = "context menu";
+const contextMenuId = "ascii math unicode";
 chrome.contextMenus.create(
   {
     id: contextMenuId,
@@ -38,6 +38,7 @@ chrome.contextMenus.create(
     }
   }
 );
+
 chrome.contextMenus.onClicked.addListener(({ menuItemId }, tab) => {
   if (menuItemId === contextMenuId) {
     if (tab) {
@@ -49,3 +50,5 @@ chrome.contextMenus.onClicked.addListener(({ menuItemId }, tab) => {
     console.error("clicked a context menu that wasn't registered");
   }
 });
+
+export {};

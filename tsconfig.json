@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "preserve",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "es6",
     "lib": ["esnext", "dom"],
     "noEmit": true,
-    "strict": true
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "lib/**/*.ts",
-    "lib/**/*.tsx",
-    "test/**/*.ts"
-  ]
+  "include": ["src/**/*.ts", "pages/**/*.tsx"],
+  "exclude": ["node_modules"]
 }
