@@ -11,7 +11,6 @@ export const defaultOptions = {
 export type Options = typeof defaultOptions;
 
 /** obj is Options */
-// FIXME switch to ajv jtd
 export function isOptions(obj: unknown): obj is Options {
   if (!isRecord(obj)) return false;
   for (const [key, val] of Object.entries(defaultOptions)) {

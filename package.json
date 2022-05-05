@@ -18,7 +18,7 @@
     "lint": "tsc && eslint --cache 'src/**/*.ts' 'pages/**/*.tsx' && next lint",
     "test": "jest --coverage",
     "build": "node build.mjs && next build && next export",
-    "prepack": "yarn build",
+    "prepack": "yarn lint && yarn test && yarn build",
     "postpack": "[ -f package.tgz ] && < package.tgz tar2zip > ascii-math-unicode.zip && rm package.tgz"
   },
   "devDependencies": {
