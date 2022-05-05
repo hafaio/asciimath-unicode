@@ -1,4 +1,4 @@
-import { assert, nn, isRecord } from "./utils";
+import { assert, nn } from "./utils";
 
 test("assert()", () => {
   expect(assert(true)).toBeUndefined();
@@ -14,11 +14,4 @@ test("nn()", () => {
   expect(nn(5)).toBe(5);
   expect(() => nn(undefined)).toThrow("internal error");
   expect(() => nn(null)).toThrow("internal error");
-});
-
-test("isRecord()", () => {
-  expect(isRecord({ foo: "bar" })).toBeTruthy();
-  expect(isRecord({})).toBeTruthy();
-  expect(isRecord(false)).toBeFalsy();
-  expect(isRecord(null)).toBeFalsy();
 });

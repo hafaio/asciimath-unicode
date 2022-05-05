@@ -1,6 +1,14 @@
-import { isRecord } from "./utils";
+import { JtdSchema, check } from "./validate";
 
-export const defaultOptions = {
+export interface Options {
+  preserveWhitespace: boolean;
+  pruneParens: boolean;
+  vulgarFractions: boolean;
+  fractionSlash: boolean;
+  convertFractions: boolean;
+}
+
+export const defaultOptions: Options = {
   preserveWhitespace: true,
   pruneParens: true,
   vulgarFractions: true,
@@ -8,13 +16,16 @@ export const defaultOptions = {
   convertFractions: true,
 };
 
-export type Options = typeof defaultOptions;
+const optionsSchema: JtdSchema<Options> = {
+  properties: {
+    preserveWhitespace: { type: "boolean" },
+    pruneParens: { type: "boolean" },
+    vulgarFractions: { type: "boolean" },
+    fractionSlash: { type: "boolean" },
+    convertFractions: { type: "boolean" },
+  },
+};
 
-/** obj is Options */
 export function isOptions(obj: unknown): obj is Options {
-  if (!isRecord(obj)) return false;
-  for (const [key, val] of Object.entries(defaultOptions)) {
-    if (typeof val !== typeof obj[key]) return false;
-  }
-  return true;
+  return check(optionsSchema, obj);
 }

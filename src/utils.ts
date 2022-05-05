@@ -8,8 +8,3 @@ export function nn<T>(arg: T | null | undefined): T {
   assert(arg);
   return arg;
 }
-
-/** type guard for record types */
-export function isRecord(obj: unknown): obj is Record<string, unknown> {
-  return !!obj && typeof obj === "object";
-}
