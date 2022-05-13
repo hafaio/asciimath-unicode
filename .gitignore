@@ -29,3 +29,5 @@ tsconfig.tsbuildinfo
 *.js
 *.zip
 out
+images
+favicon.ico
