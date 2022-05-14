@@ -3,6 +3,7 @@ Ascii Math Unicode
 
 [![tests](https://github.com/brinkbotlabs/ascii-math-unicode/actions/workflows/node.js.yml/badge.svg)](https://github.com/brinkbotlabs/ascii-math-unicode/actions/workflows/node.js.yml)
 [![chrome](https://img.shields.io/badge/chrome-extension-orange)](https://chrome.google.com/webstore/detail/llehdcbaonklonjlfgeggamnebgggoab?authuser=0&hl=en)
+[![license](https://img.shields.io/github/license/hafaio/ascii-math-unicode)](LICENSE)
 
 A chrome extension for rendering [ascii math](http://asciimath.org/) as unicode.
 
