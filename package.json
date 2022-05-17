@@ -4,18 +4,10 @@
   "version": "1.1.0",
   "author": "Erik Brinkman <erik.brinkman@gmail.com>",
   "license": "MIT",
-  "files": [
-    "/manifest.json",
-    "/images/*.png",
-    "/public/**/*",
-    "/favicon.ico",
-    "/*.js",
-    "/out/**/*"
-  ],
   "scripts": {
-    "fmt": "prettier --write '*.json' 'src/**/*.ts' 'pages/**/*tsx' '*.mjs'",
+    "fmt": "prettier --write '*.json' 'src/**/*.ts' 'pages/**/*.tsx' 'components/**/*.tsx' '*.mjs'",
     "dev": "next dev",
-    "lint": "tsc && eslint --cache 'src/**/*.ts' 'pages/**/*.tsx' && next lint",
+    "lint": "tsc && eslint --cache 'src/**/*.ts' 'pages/**/*.tsx' 'components/**/*.tsx' && next lint",
     "test": "jest --coverage",
     "build:images": "<<< $'16\n32\n48\n128' xargs -I@ convert -background none -resize @x@ public/am.svg images/am@.png && convert images/am*.png favicon.ico",
     "build:bundle": "node build.mjs",
@@ -24,6 +16,13 @@
     "prepack": "yarn lint && yarn test && yarn build",
     "postpack": "[ -f package.tgz ] && < package.tgz tar2zip > ascii-math-unicode.zip && rm package.tgz"
   },
+  "files": [
+    "/manifest.json",
+    "/images/*.png",
+    "/favicon.ico",
+    "/*.js",
+    "/out/**/*"
+  ],
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
@@ -97,7 +96,6 @@
       "plugin:@next/next/recommended"
     ],
     "rules": {
-      "@next/next/no-img-element": "off",
       "no-warning-comments": [
         "warn",
         {

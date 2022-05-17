@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import StaticImage from "../components/static-image";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import React, {
@@ -30,7 +31,12 @@ function Hero(): ReactElement {
   return (
     <>
       <Stack direction="row" justifyContent="space-around">
-        <img src={`${publicPrefix}/am.svg`} />
+        <StaticImage
+          alt="ascii-math"
+          src={`${publicPrefix}/am.svg`}
+          width={128}
+          height={128}
+        />
       </Stack>
       <Typography variant="h2" align="center">
         Ascii Math Unicode Options

@@ -41,3 +41,8 @@ Compile a zip for upload to the store
 ```
 yarn pack
 ```
+
+To Do
+-----
+
+- [ ] It'd be nice to extend the rendering to multi-line support that works for fixed width fonts.
