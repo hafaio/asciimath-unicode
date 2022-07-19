@@ -13,7 +13,17 @@ if (selection && selection.rangeCount) {
       const options = isOptions(opts) ? opts : defaultOptions;
       const replacement = render(parse(selection.toString()), options);
       range.deleteContents();
-      range.insertNode(document.createTextNode(replacement));
+      // reacquire selection after deleting to get true position
+      const { startContainer, startOffset } = selection.getRangeAt(0);
+      const content = startContainer.textContent ?? "";
+      // replace content with spliced in replacement
+      startContainer.textContent =
+        content.slice(0, startOffset) +
+        replacement +
+        content.slice(startOffset);
+      // this moves selection back to beginning, so reset it
+      selection.collapse(startContainer, startOffset);
+      selection.extend(startContainer, startOffset + replacement.length);
     });
   }
 }
