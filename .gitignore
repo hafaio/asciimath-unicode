@@ -8,21 +8,13 @@
 !.yarn/sdks
 !.yarn/versions
 
-# Jest #
-########
+# Cache #
+#########
 coverage
-
-# Eslint #
-##########
-.eslintcache
-
-# TypeScript #
-##############
 tsconfig.tsbuildinfo
-
-# Next #
-########
+.eslintcache
 .next
+.cache
 
 # Artifacts #
 #############
