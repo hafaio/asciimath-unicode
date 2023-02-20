@@ -1,3 +1,7 @@
+// FIXME rename to asciimath-unicode
+// FIXME call wasm asciimath-unicode instead
+// FIXME change script to look for asciimath if nothing is selected, probably
+// only if focus is a box. Might need a helper to determine where tokens are
 import { nn } from "./utils";
 
 export interface Token {

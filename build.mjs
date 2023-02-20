@@ -1,3 +1,4 @@
+// FIXME remove this
 import { pnpPlugin } from "@yarnpkg/esbuild-plugin-pnp";
 import { build } from "esbuild";
 import { performance } from "perf_hooks";
@@ -20,7 +21,7 @@ async function wrapper(options) {
 }
 
 const config = {
-  plugins: [pnpPlugin()],
+  // plugins: [pnpPlugin()],
   bundle: true,
   minify: true,
 };
