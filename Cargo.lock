@@ -4,7 +4,9 @@ version = 3
 
 [[package]]
 name = "asciimath-parser"
-version = "0.1.0"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e648f559c9d9d6e6270a3398aa64f22740385242fcb3f7641e1ff51e9094e59a"
 dependencies = [
  "lazy_static",
  "qp-trie",
@@ -13,6 +15,8 @@ dependencies = [
 [[package]]
 name = "asciimath-unicode"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "26dc2196fce2aefbc7f3693a2d611c2f8f6ccdea06f6e43570252d07273e9646"
 dependencies = [
  "asciimath-parser",
  "emojis",
