@@ -15,6 +15,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["src/**/*.ts", "pages/**/*.tsx", "components/**/*.tsx"],
+  "include": [
+    "src/**/*.ts",
+    "pages/**/*.tsx",
+    "components/**/*.tsx",
+    "pkg/*.js",
+    "pkg/*.d.ts"
+  ],
   "exclude": ["node_modules"]
 }

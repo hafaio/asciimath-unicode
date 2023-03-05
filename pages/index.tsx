@@ -1,8 +1,9 @@
 import Head from "next/head";
-import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Container from "@mui/material/Container";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
@@ -19,7 +20,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { Options, defaultOptions, isOptions } from "../src/options";
+import { SkinTone, Options, defaultOptions, isOptions } from "../src/options";
 
 type PartialOptions = Partial<Options>;
 
@@ -29,7 +30,7 @@ const publicPrefix =
 
 function Hero(): ReactElement {
   return (
-    <>
+    <div>
       <Stack direction="row" justifyContent="space-around">
         <StaticImage
           alt="ascii-math"
@@ -41,7 +42,7 @@ function Hero(): ReactElement {
       <Typography variant="h2" align="center">
         Ascii Math Unicode Options
       </Typography>
-    </>
+    </div>
   );
 }
 
@@ -65,18 +66,54 @@ function OptRow({
   return <FormControlLabel control={toggle} label={text} />;
 }
 
+const BASE_EMOJI = "✊";
+
+function SkinToneRow({
+  value,
+  setValue,
+}: {
+  value: SkinTone | undefined;
+  setValue: (val: SkinTone) => void;
+}): ReactElement {
+  const disabled = value === undefined;
+  const change = useCallback(
+    (evt: SelectChangeEvent<SkinTone>) =>
+      setValue(evt.target.value as SkinTone),
+    [setValue]
+  );
+  const select = (
+    <Select
+      value={value ?? "Default"}
+      disabled={disabled}
+      onChange={change}
+      sx={{ mr: 2 }}
+    >
+      <MenuItem value="Default">{BASE_EMOJI}</MenuItem>
+      <MenuItem value="Dark">{BASE_EMOJI}&#127999;</MenuItem>
+      <MenuItem value="Medium Dark">{BASE_EMOJI}&#127998;</MenuItem>
+      <MenuItem value="Medium">{BASE_EMOJI}&#127997;</MenuItem>
+      <MenuItem value="Medium Light">{BASE_EMOJI}&#127996;</MenuItem>
+      <MenuItem value="Light">{BASE_EMOJI}&#127995;</MenuItem>
+    </Select>
+  );
+  return (
+    <FormControlLabel
+      control={select}
+      label="Set the default skin tone for emoji created using :emoji: syntax"
+    />
+  );
+}
+
 const configs = [
-  ["preserveWhitespace", "Preserve whitespace when converting"],
   ["pruneParens", "Prune parentheses when implied by fractions, etc."],
   [
     "vulgarFractions",
     "Render simple fractions as vulgar fractions (e.g. '\u00bd')",
   ],
   [
-    "fractionSlash",
-    "When rendering fractions use the unicode fraction slash (\u2044) instead of the solidus (/)",
+    "scriptFractions",
+    "When rendering fractions, if the numerator and denominator can be rendered as super- and subscripts respectively then render the fraction in this form",
   ],
-  ["convertFractions", "Convert fractions (e.g. 'frac a b' to 'a/b')"],
 ] as const;
 
 function OptionRows({
@@ -96,7 +133,7 @@ function OptionRows({
     );
   });
 
-  return <FormGroup>{rows}</FormGroup>;
+  return <>{rows}</>;
 }
 
 const unknownOptions: PartialOptions = Object.fromEntries(
@@ -143,6 +180,11 @@ export default function OptionsPage(): ReactElement {
     }
   }, [options === unknownOptions]);
 
+  const setSkinTone = useCallback(
+    (val: SkinTone) => setOptions({ ...options, skinTone: val }),
+    [options, setOptions]
+  );
+
   // persist options when changed
   useEffect(() => {
     if (options !== unknownOptions && sync !== undefined) {
@@ -164,9 +206,10 @@ export default function OptionsPage(): ReactElement {
         </Alert>
       </Snackbar>
       <Container maxWidth="sm">
-        <Stack spacing={2}>
+        <Stack spacing={1}>
           <Hero />
           <OptionRows options={options} setOptions={setOptions} />
+          <SkinToneRow value={options.skinTone} setValue={setSkinTone} />
         </Stack>
       </Container>
     </ThemeProvider>

@@ -5,14 +5,15 @@
   "author": "Erik Brinkman <erik.brinkman@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "fmt": "prettier --cache --write '*.json' 'src/**/*.ts' 'pages/**/*.tsx' 'components/**/*.tsx' '*.mjs'",
+    "fmt": "prettier --cache --write '*.json' 'src/**/*.ts' 'pages/**/*.tsx' 'components/**/*.tsx' next.config.mjs && cargo fmt",
     "dev": "next dev",
-    "lint": "tsc && eslint --cache 'src/**/*.ts' 'pages/**/*.tsx' 'components/**/*.tsx' && next lint",
+    "lint": "tsc && eslint --cache 'src/**/*.ts' 'pages/**/*.tsx' 'components/**/*.tsx' && next lint && cargo clippy",
     "test": "jest --coverage",
+    "build:wasm": "wasm-pack build -t web && cp pkg/convert_bg.wasm .",
     "build:images": "<<< $'16\n32\n48\n128' xargs -I@ convert -background none -resize @x@ public/am.svg images/am@.png && convert images/am*.png favicon.ico",
-    "build:bundle": "node build.mjs",
+    "build:bundle": "esbuild src/worker.ts --outfile=service_worker.js --bundle --minify --define:import.meta.url=location.origin && esbuild src/convert.ts --outfile=convert.js --bundle --minify",
     "build:next": "next build && next export",
-    "build": "yarn build:images && yarn build:bundle && yarn build:next",
+    "build": "yarn build:images && yarn build:wasm && yarn build:bundle && yarn build:next",
     "prepack": "yarn lint && yarn test && yarn build",
     "postpack": "[ -f package.tgz ] && < package.tgz tar2zip > ascii-math-unicode.zip && rm package.tgz"
   },
@@ -20,7 +21,9 @@
     "/manifest.json",
     "/images/*.png",
     "/favicon.ico",
-    "/*.js",
+    "/convert.js",
+    "/service_worker.js",
+    "/convert_bg.wasm",
     "/out/**/*"
   ],
   "devDependencies": {

@@ -1,7 +1,7 @@
 # Yarn #
 ########
+.pnp.*
 .yarn/*
-!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
@@ -18,8 +18,11 @@ tsconfig.tsbuildinfo
 
 # Artifacts #
 #############
-*.js
-*.zip
-out
-images
-favicon.ico
+/*.js
+/*.wasm
+/*.zip
+/out
+/images
+/favicon.ico
+/target
+/pkg

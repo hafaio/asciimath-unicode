@@ -1,28 +1,30 @@
 import { JtdSchema, check } from "./validate";
+import { Tone } from "../pkg/convert";
+
+export type SkinTone = keyof typeof Tone;
 
 export interface Options {
-  preserveWhitespace: boolean;
   pruneParens: boolean;
   vulgarFractions: boolean;
-  fractionSlash: boolean;
-  convertFractions: boolean;
+  scriptFractions: boolean;
+  skinTone: SkinTone;
 }
 
 export const defaultOptions: Options = {
-  preserveWhitespace: true,
   pruneParens: true,
   vulgarFractions: true,
-  fractionSlash: true,
-  convertFractions: true,
+  scriptFractions: true,
+  skinTone: "Default",
 };
 
 const optionsSchema: JtdSchema<Options> = {
   properties: {
-    preserveWhitespace: { type: "boolean" },
     pruneParens: { type: "boolean" },
     vulgarFractions: { type: "boolean" },
-    fractionSlash: { type: "boolean" },
-    convertFractions: { type: "boolean" },
+    scriptFractions: { type: "boolean" },
+    skinTone: {
+      enum: ["Default", "Light", "MediumLight", "Medium", "MediumDark", "Dark"],
+    },
   },
 };
 

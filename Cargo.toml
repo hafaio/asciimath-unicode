@@ -1,0 +1,15 @@
+[package]
+name = "convert"
+version = "0.1.0"
+edition = "2021"
+description = "the wasm binding for asciimath-unicode"
+repository = "https://github.com/hafaio/ascii-math-unicode"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+asciimath-unicode = { version = "0.1.0", path = "../asciimath-unicode-rs" }
+wasm-bindgen = "0.2.84"
