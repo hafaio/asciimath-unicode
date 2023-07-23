@@ -58,7 +58,7 @@ function OptRow({
   const disabled = value === undefined;
   const change = useCallback(
     (evt: ChangeEvent<HTMLInputElement>) => setValue(evt.target.checked),
-    [setValue]
+    [setValue],
   );
   const toggle = (
     <Switch checked={value ?? disabled} disabled={disabled} onChange={change} />
@@ -79,7 +79,7 @@ function SkinToneRow({
   const change = useCallback(
     (evt: SelectChangeEvent<SkinTone>) =>
       setValue(evt.target.value as SkinTone),
-    [setValue]
+    [setValue],
   );
   const select = (
     <Select
@@ -126,7 +126,7 @@ function OptionRows({
   const rows = configs.map(([name, text]) => {
     const setVal = useCallback(
       (val: boolean) => setOptions({ ...options, [name]: val }),
-      [options, setOptions]
+      [options, setOptions],
     );
     return (
       <OptRow key={name} text={text} value={options[name]} setValue={setVal} />
@@ -137,7 +137,7 @@ function OptionRows({
 }
 
 const unknownOptions: PartialOptions = Object.fromEntries(
-  Object.keys(defaultOptions).map((key) => [key, undefined])
+  Object.keys(defaultOptions).map((key) => [key, undefined]),
 );
 const sync = globalThis.chrome?.storage?.sync;
 
@@ -151,7 +151,7 @@ export default function OptionsPage(): ReactElement {
           mode: prefersDarkMode ? "dark" : "light",
         },
       }),
-    [prefersDarkMode]
+    [prefersDarkMode],
   );
 
   // current options
@@ -182,7 +182,7 @@ export default function OptionsPage(): ReactElement {
 
   const setSkinTone = useCallback(
     (val: SkinTone) => setOptions({ ...options, skinTone: val }),
-    [options, setOptions]
+    [options, setOptions],
   );
 
   // persist options when changed

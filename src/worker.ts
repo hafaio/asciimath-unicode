@@ -32,20 +32,20 @@ chrome.runtime.onMessage.addListener(
               pruneParens,
               vulgarFractions,
               scriptFractions,
-              Tone[skinTone]
+              Tone[skinTone],
             ),
           });
         },
         (err: unknown) => {
           console.error(err);
           send({ type: "error", err: "initializtion or storage error" });
-        }
+        },
       );
     } else {
       send({ type: "error", err: "invalid message format" });
     }
     return true;
-  }
+  },
 );
 
 // add convert when button clicked
@@ -72,10 +72,10 @@ chrome.contextMenus.create(
     if (chrome.runtime.lastError) {
       console.error(
         "couldn't register context menu",
-        chrome.runtime.lastError.message
+        chrome.runtime.lastError.message,
       );
     }
-  }
+  },
 );
 
 chrome.contextMenus.onClicked.addListener(({ menuItemId }, tab) => {
