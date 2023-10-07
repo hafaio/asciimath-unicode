@@ -2,3 +2,4 @@
 const isProd = process.env.NODE_ENV === "production";
 export const assetPrefix = isProd ? "/out" : "";
 export const images = { loader: "custom" };
+export const output = "export";
