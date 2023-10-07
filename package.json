@@ -10,7 +10,7 @@
     "lint": "tsc && eslint --cache 'src/**/*.ts' 'pages/**/*.tsx' 'components/**/*.tsx' && next lint && cargo clippy",
     "test": "jest --coverage",
     "build:wasm": "wasm-pack build -t web && cp pkg/convert_bg.wasm .",
-    "build:images": "<<< $'16\n32\n48\n128' xargs -I@ convert -background none -resize @x@ public/am.svg images/am@.png && convert images/am*.png favicon.ico",
+    "build:images": "mkdir -p images && <<< $'16\n32\n48\n128' xargs -I@ convert -background none -resize @x@ public/am.svg images/am@.png && convert images/am*.png favicon.ico",
     "build:bundle": "esbuild src/worker.ts --outfile=service_worker.js --bundle --minify --define:import.meta.url=location.origin && esbuild src/convert.ts --outfile=convert.js --bundle --minify",
     "build:next": "next build && next export",
     "build": "yarn build:images && yarn build:wasm && yarn build:bundle && yarn build:next",
