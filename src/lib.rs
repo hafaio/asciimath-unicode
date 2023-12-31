@@ -1,3 +1,5 @@
+#![warn(clippy::pedantic)]
+
 use asciimath_unicode::{InlineRenderer, SkinTone};
 use wasm_bindgen::prelude::wasm_bindgen;
 
@@ -24,6 +26,7 @@ impl From<Tone> for SkinTone {
     }
 }
 
+#[must_use]
 #[wasm_bindgen]
 pub fn convert(
     inp: &str,
