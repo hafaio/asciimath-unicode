@@ -3,7 +3,7 @@ import { convert } from "./message";
 void (async () => {
   // replace selection on page
   const selection = getSelection();
-  if (selection && selection.rangeCount) {
+  if (selection?.rangeCount) {
     // valid selection
     const range = selection.getRangeAt(0);
     if (!range.collapsed) {

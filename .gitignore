@@ -1,24 +1,16 @@
-# Yarn #
-########
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-
 # Cache #
 #########
 coverage
 tsconfig.tsbuildinfo
+node_modules
 .eslintcache
 .next
 .cache
 
 # Artifacts #
 #############
-/*.js
+convert.js
+service_worker.js
 /*.wasm
 /*.zip
 /out

@@ -1,31 +1,32 @@
-import Head from "next/head";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
+import Alert from "@mui/material/Alert";
 import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import StaticImage from "../components/static-image";
+import Stack from "@mui/material/Stack";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import React, {
-  ReactElement,
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Head from "next/head";
+import {
   ChangeEvent,
-  useEffect,
-  useState,
+  ReactElement,
   useCallback,
+  useEffect,
   useMemo,
+  useState,
 } from "react";
-import { SkinTone, Options, defaultOptions, isOptions } from "../src/options";
+import StaticImage from "../components/static-image";
+import { defaultOptions, isOptions, Options, SkinTone } from "../src/options";
 
 type PartialOptions = Partial<Options>;
 
 // This make sure that public assets also get the proper path
 const publicPrefix =
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   globalThis.process?.env?.NODE_ENV === "production" ? "/out" : "";
 
 function Hero(): ReactElement {
@@ -57,7 +58,9 @@ function OptRow({
 }): ReactElement {
   const disabled = value === undefined;
   const change = useCallback(
-    (evt: ChangeEvent<HTMLInputElement>) => setValue(evt.target.checked),
+    (evt: ChangeEvent<HTMLInputElement>) => {
+      setValue(evt.target.checked);
+    },
     [setValue],
   );
   const toggle = (
@@ -77,8 +80,9 @@ function SkinToneRow({
 }): ReactElement {
   const disabled = value === undefined;
   const change = useCallback(
-    (evt: SelectChangeEvent<SkinTone>) =>
-      setValue(evt.target.value as SkinTone),
+    (evt: SelectChangeEvent<SkinTone>) => {
+      setValue(evt.target.value as SkinTone);
+    },
     [setValue],
   );
   const select = (
@@ -105,6 +109,7 @@ function SkinToneRow({
 }
 
 const configs = [
+  // eslint-disable-next-line spellcheck/spell-checker
   ["pruneParens", "Prune parentheses when implied by fractions, etc."],
   [
     "vulgarFractions",
@@ -125,7 +130,9 @@ function OptionRows({
 }): ReactElement {
   const rows = configs.map(([name, text]) => {
     const setVal = useCallback(
-      (val: boolean) => setOptions({ ...options, [name]: val }),
+      (val: boolean) => {
+        setOptions({ ...options, [name]: val });
+      },
       [options, setOptions],
     );
     return (
@@ -139,7 +146,9 @@ function OptionRows({
 const unknownOptions: PartialOptions = Object.fromEntries(
   Object.keys(defaultOptions).map((key) => [key, undefined]),
 );
-const sync = globalThis.chrome?.storage?.sync;
+const sync: chrome.storage.SyncStorageArea | undefined =
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  globalThis.chrome?.storage?.sync;
 
 export default function OptionsPage(): ReactElement {
   // auto dark mode
@@ -159,7 +168,9 @@ export default function OptionsPage(): ReactElement {
 
   // whether showing warning about login
   const [alerting, setAlerting] = useState(false);
-  const stopAlerting = useCallback(() => setAlerting(false), [setAlerting]);
+  const stopAlerting = useCallback(() => {
+    setAlerting(false);
+  }, [setAlerting]);
 
   // read options first time
   useEffect(() => {
@@ -181,7 +192,9 @@ export default function OptionsPage(): ReactElement {
   }, [options === unknownOptions]);
 
   const setSkinTone = useCallback(
-    (val: SkinTone) => setOptions({ ...options, skinTone: val }),
+    (val: SkinTone) => {
+      setOptions({ ...options, skinTone: val });
+    },
     [options, setOptions],
   );
 
@@ -197,6 +210,7 @@ export default function OptionsPage(): ReactElement {
       <Head>
         <title>Ascii Math Unicode Options</title>
         {/* head gets compiled separately and doesn't seem to work with publicPrefic */}
+        {/* eslint-disable-next-line spellcheck/spell-checker */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CssBaseline />

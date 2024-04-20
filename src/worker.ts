@@ -1,8 +1,8 @@
-import { default as init, convert, Tone } from "../pkg/convert";
-import { isOptions, defaultOptions } from "./options";
-import { isSelectedMessage, Response } from "./message";
+import { Tone, convert, default as init } from "../pkg/convert";
+import { Response, isSelectedMessage } from "./message";
+import { defaultOptions, isOptions } from "./options";
 
-/** generic fucntion for running conversion script */
+/** generic function for running conversion script */
 function convertSelectionOnTab(tab: chrome.tabs.Tab): void {
   if (tab.id) {
     // forget about this promise
@@ -38,7 +38,7 @@ chrome.runtime.onMessage.addListener(
         },
         (err: unknown) => {
           console.error(err);
-          send({ type: "error", err: "initializtion or storage error" });
+          send({ type: "error", err: "initialization or storage error" });
         },
       );
     } else {

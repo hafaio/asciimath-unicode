@@ -1,5 +1,5 @@
-import { JtdSchema, check } from "./validate";
 import { Tone } from "../pkg/convert";
+import { JtdSchema, check } from "./validate";
 
 export type SkinTone = keyof typeof Tone;
 
