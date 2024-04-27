@@ -2,28 +2,19 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
 name: tests
-
 on: [ push, pull_request ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
-    - uses: actions/checkout@v3
-    - name: wasm-pack-action
-      uses: jetli/wasm-pack-action@v0.4.0
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: yarn install
-    - run: yarn build:wasm
-    - run: yarn lint
-    - run: yarn test
-    - run: yarn build:bundle
-    - run: yarn build:next
+    - uses: actions/checkout@v4
+    - uses: oven-sh/setup-bun@v1
+    - run: cargo install wasm-pack
+    - run: bun install
+    - run: bun export:wasm
+    - run: bun lint
+    - run: bun test
+    - run: bun export:bundle
+    - run: bun export:next
