@@ -1,5 +1,5 @@
+import { expect, test } from "bun:test";
 import { defaultOptions, isOptions } from "./options";
-import { test, expect } from "bun:test";
 
 test("options", () => {
   expect(isOptions(null)).toBeFalsy();

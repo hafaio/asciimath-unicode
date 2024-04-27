@@ -13,19 +13,10 @@
     "export:images": "mkdir -p images && <<< $'16\n32\n48\n128' xargs -I@ convert -background none -resize @x@ public/am.svg images/am@.png && convert images/am*.png favicon.ico",
     "export:bundle": "bun build src/worker.ts --outfile service_worker.js --minify --define import.meta.url=location.origin && bun build src/convert.ts --outfile convert.js --minify",
     "export:next": "next build",
-    "export": "bun export:images && bun export:wasm && bun export:bundle && bun export:next",
-    "prepack": "bun lint && bun test --coverage && bun export",
-    "postpack": "< asciimath-unicode-0.0.0.tgz bun tar2zip > asciimath-unicode.zip && rm asciimath-unicode-0.0.0.tgz"
+    "export:pack": "zip -r --filesync asciimath-unicode.zip manifest.json images/*.png favicon.ico convert.js service_worker.js convert_bg.wasm out",
+    "export": "bun export:images && bun export:wasm && bun export:bundle && bun export:next && bun export:pack",
+    "pack": "bun lint && bun test --coverage && bun export"
   },
-  "files": [
-    "/manifest.json",
-    "/images/*.png",
-    "/favicon.ico",
-    "/convert.js",
-    "/service_worker.js",
-    "/convert_bg.wasm",
-    "/out/**/*"
-  ],
   "devDependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -47,7 +38,6 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tar-to-zip": "^3.0.0",
     "typescript": "^5.3.3",
     "typescript-eslint": "^7.7.0"
   }
