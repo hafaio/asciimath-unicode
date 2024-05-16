@@ -1,5 +1,5 @@
+import { CompiledSchema, boolean, enumeration, properties } from "jtd-ts";
 import { Tone } from "../pkg/convert";
-import { JtdSchema, check } from "./validate";
 
 export type SkinTone = keyof typeof Tone;
 
@@ -17,17 +17,16 @@ export const defaultOptions: Options = {
   skinTone: "Default",
 };
 
-const optionsSchema: JtdSchema<Options> = {
-  properties: {
-    pruneParens: { type: "boolean" },
-    vulgarFractions: { type: "boolean" },
-    scriptFractions: { type: "boolean" },
-    skinTone: {
-      enum: ["Default", "Light", "MediumLight", "Medium", "MediumDark", "Dark"],
-    },
-  },
-};
-
-export function isOptions(obj: unknown): obj is Options {
-  return check(optionsSchema, obj);
-}
+export const optionsSchema = properties({
+  pruneParens: boolean(),
+  vulgarFractions: boolean(),
+  scriptFractions: boolean(),
+  skinTone: enumeration(
+    "Default",
+    "Light",
+    "MediumLight",
+    "Medium",
+    "MediumDark",
+    "Dark",
+  ),
+}) satisfies CompiledSchema<Options, unknown>;

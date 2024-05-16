@@ -1,18 +1,12 @@
-import { JtdSchema, check } from "./validate";
+import { CompiledSchema, discriminator, properties, string } from "jtd-ts";
 
 export interface SelectedMessage {
   text: string;
 }
 
-const messageSchema: JtdSchema<SelectedMessage> = {
-  properties: {
-    text: { type: "string" },
-  },
-};
-
-export function isSelectedMessage(msg: unknown): msg is SelectedMessage {
-  return check(messageSchema, msg);
-}
+export const messageSchema = properties({
+  text: string(),
+}) satisfies CompiledSchema<SelectedMessage, unknown>;
 
 export interface ConvertedMessage {
   type: "result";
@@ -26,26 +20,15 @@ export interface InitError {
 
 export type Response = ConvertedMessage | InitError;
 
-const responseSchema: JtdSchema<Response> = {
-  discriminator: "type",
-  mapping: {
-    result: {
-      properties: {
-        result: { type: "string" },
-      },
-    },
-    error: {
-      properties: {
-        err: { type: "string" },
-      },
-    },
-  },
-};
+const responseSchema = discriminator("type", {
+  result: properties({ result: string() }),
+  error: properties({ err: string() }),
+}) satisfies CompiledSchema<Response, unknown>;
 
 export async function convert(text: string): Promise<string> {
   const message: SelectedMessage = { text };
   const response: unknown = await chrome.runtime.sendMessage(message);
-  if (check(responseSchema, response)) {
+  if (responseSchema.guard(response)) {
     if (response.type === "result") {
       return response.result;
     } else {

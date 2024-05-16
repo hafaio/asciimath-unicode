@@ -7,6 +7,7 @@ export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
+    files: ["pages/**/*.tsx", "src/**/*.ts", "components/**/*.tsx"],
     plugins: { spellcheck },
     languageOptions: {
       parserOptions: {

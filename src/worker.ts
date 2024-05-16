@@ -1,6 +1,6 @@
 import { Tone, convert, default as init } from "../pkg/convert";
-import { Response, isSelectedMessage } from "./message";
-import { defaultOptions, isOptions } from "./options";
+import { Response, messageSchema } from "./message";
+import { defaultOptions, optionsSchema } from "./options";
 
 /** generic function for running conversion script */
 function convertSelectionOnTab(tab: chrome.tabs.Tab): void {
@@ -20,11 +20,11 @@ const initialize = init();
 // add callback for rendering through wasm
 chrome.runtime.onMessage.addListener(
   (message: unknown, _, send: (resp: Response) => void): boolean => {
-    if (isSelectedMessage(message)) {
+    if (messageSchema.guard(message)) {
       Promise.all([chrome.storage.sync.get(defaultOptions), initialize]).then(
         ([opts]) => {
           const { vulgarFractions, scriptFractions, skinTone, pruneParens } =
-            isOptions(opts) ? opts : defaultOptions;
+            optionsSchema.guard(opts) ? opts : defaultOptions;
           send({
             type: "result",
             result: convert(

@@ -1,8 +1,8 @@
 import { expect, test } from "bun:test";
-import { defaultOptions, isOptions } from "./options";
+import { defaultOptions, optionsSchema } from "./options";
 
 test("options", () => {
-  expect(isOptions(null)).toBeFalsy();
-  expect(isOptions({ preserveWhitespace: false })).toBeFalsy();
-  expect(isOptions(defaultOptions)).toBeTruthy();
+  expect(optionsSchema.guard(null)).toBeFalse();
+  expect(optionsSchema.guard({ preserveWhitespace: false })).toBeFalse();
+  expect(optionsSchema.guard(defaultOptions)).toBeTrue();
 });

@@ -20,7 +20,12 @@ import {
   useState,
 } from "react";
 import StaticImage from "../components/static-image";
-import { defaultOptions, isOptions, Options, SkinTone } from "../src/options";
+import {
+  defaultOptions,
+  Options,
+  optionsSchema,
+  SkinTone,
+} from "../src/options";
 
 type PartialOptions = Partial<Options>;
 
@@ -178,7 +183,7 @@ export default function OptionsPage(): ReactElement {
       // nothing
     } else if (sync !== undefined) {
       sync.get(defaultOptions, (opts) => {
-        if (isOptions(opts)) {
+        if (optionsSchema.guard(opts)) {
           setOptions(opts);
         } else {
           setAlerting(true);
