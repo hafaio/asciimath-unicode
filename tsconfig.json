@@ -1,26 +1,26 @@
 {
-  "compilerOptions": {
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "target": "es6",
-    "lib": ["esnext", "dom"],
-    "noEmit": true,
-    "strict": true,
-    "allowJs": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "incremental": true,
-    "module": "esnext",
-    "resolveJsonModule": true,
-    "isolatedModules": true
-  },
-  "include": [
-    "src/**/*.ts",
-    "pages/**/*.tsx",
-    "components/**/*.tsx",
-    "pkg/*.js",
-    "pkg/*.d.ts"
-  ],
-  "exclude": ["node_modules"]
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"target": "es6",
+		"lib": ["esnext", "dom"],
+		"noEmit": true,
+		"strict": true,
+		"allowJs": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"incremental": true,
+		"module": "esnext",
+		"resolveJsonModule": true,
+		"isolatedModules": true
+	},
+	"include": [
+		"src/**/*.ts",
+		"pages/**/*.tsx",
+		"components/**/*.tsx",
+		"pkg/*.js",
+		"pkg/*.d.ts"
+	],
+	"exclude": ["node_modules"]
 }
