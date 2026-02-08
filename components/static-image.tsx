@@ -1,19 +1,19 @@
-import Image, { ImageLoaderProps, ImageProps } from "next/image";
-import { ReactElement } from "react";
+import Image, { type ImageLoaderProps, type ImageProps } from "next/image";
+import type { ReactElement } from "react";
 
 function staticLoader({ src }: ImageLoaderProps): string {
-  return src;
+	return src;
 }
 
 interface StaticImageProps extends ImageProps {
-  alt: string;
-  loader?: never;
-  unoptimized?: never;
+	alt: string;
+	loader?: never;
+	unoptimized?: never;
 }
 
 export default function StaticImage({
-  alt,
-  ...props
+	alt,
+	...props
 }: StaticImageProps): ReactElement {
-  return <Image alt={alt} {...props} loader={staticLoader} unoptimized />;
+	return <Image alt={alt} {...props} loader={staticLoader} unoptimized />;
 }
