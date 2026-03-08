@@ -6,3 +6,8 @@ test("options", () => {
 	expect(optionsSchema.guard({ preserveWhitespace: false })).toBeFalse();
 	expect(optionsSchema.guard(defaultOptions)).toBeTrue();
 });
+
+test("old options format missing block is rejected", () => {
+	const { block: _, ...oldFormat } = defaultOptions;
+	expect(optionsSchema.guard(oldFormat)).toBeFalse();
+});
