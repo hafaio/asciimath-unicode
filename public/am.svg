@@ -2,11 +2,11 @@
 <svg
    width="256"
    height="256"
-   viewBox="0 -728 14144.894 14145.455"
+   viewBox="0 0 256 256"
    version="1.1"
    id="svg905"
-   sodipodi:docname="am_outline.svg"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="am.svg"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
    inkscape:export-filename="C:\Users\erikb\am128.png"
    inkscape:export-xdpi="73.335922"
    inkscape:export-ydpi="73.335922"
@@ -37,23 +37,25 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1500"
-     inkscape:window-height="930"
+     inkscape:window-width="1408"
+     inkscape:window-height="868"
      id="namedview907"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="1.0802248"
-     inkscape:cx="19.440399"
-     inkscape:cy="288.82878"
-     inkscape:window-x="-6"
-     inkscape:window-y="-6"
-     inkscape:window-maximized="1"
+     inkscape:zoom="0.89460288"
+     inkscape:cx="144.75697"
+     inkscape:cy="311.31132"
+     inkscape:window-x="308"
+     inkscape:window-y="100"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg905"
      inkscape:document-rotation="0"
-     inkscape:pagecheckerboard="0" />
+     inkscape:pagecheckerboard="0"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs877">
     <path
@@ -74,7 +76,7 @@
   </defs>
   <g
      id="g1852"
-     transform="matrix(1.0872978,0,0,1.0872978,-483.58499,-366.03369)">
+     transform="matrix(0.01918456,0,0,0.01918456,-5.3205577,9.5936162)">
     <path
        id="path1830"
        style="fill:#000000;stroke:#ffffff;stroke-width:1657.67;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"

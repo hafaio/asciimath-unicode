@@ -10,7 +10,7 @@
 		"dev": "next dev --turbo",
 		"lint": "tsc && biome check && cargo clippy",
 		"export:wasm": "wasm-pack build -t web && cp pkg/convert_bg.wasm .",
-		"export:images": "mkdir -p images && <<< $'16\n32\n48\n128' xargs -I@ convert -background none -resize @x@ public/am.svg images/am@.png && convert images/am*.png favicon.ico",
+		"export:images": "mkdir -p images && <<< $'16\n32\n48\n128' xargs -I@ rsvg-convert -w @ -h @ public/am.svg -o images/am@.png && magick images/am*.png favicon.ico",
 		"export:bundle": "bun build src/worker.ts --outfile service_worker.js --minify --define import.meta.url=location.origin && bun build src/convert.ts --outfile convert.js --minify",
 		"export:next": "next build",
 		"export:pack": "zip -r --filesync asciimath-unicode.zip manifest.json images/*.png favicon.ico convert.js service_worker.js convert_bg.wasm out",

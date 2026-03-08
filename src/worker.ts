@@ -28,8 +28,13 @@ chrome.runtime.onMessage.addListener(
 				initialize,
 			]).then(
 				([opts]) => {
-					const { vulgarFractions, scriptFractions, skinTone, pruneParens } =
-						optionsSchema.guard(opts) ? opts : defaultOptions;
+					const {
+						vulgarFractions,
+						scriptFractions,
+						skinTone,
+						pruneParens,
+						block,
+					} = optionsSchema.guard(opts) ? opts : defaultOptions;
 					send({
 						type: "result",
 						result: convert(
@@ -38,6 +43,7 @@ chrome.runtime.onMessage.addListener(
 							vulgarFractions,
 							scriptFractions,
 							Tone[skinTone],
+							block,
 						),
 					});
 				},
