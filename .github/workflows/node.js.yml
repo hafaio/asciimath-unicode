@@ -11,6 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: oven-sh/setup-bun@v1
+    - uses: Swatinem/rust-cache@v2
     - run: cargo install wasm-pack
     - run: bun install
     - run: bun export:wasm
