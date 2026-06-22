@@ -2,7 +2,7 @@
 	"name": "Ascii Math Unicode",
 	"description": "A tool for rendering selected ascii math as unicode",
 	"version": "3.0.0",
-	"options_page": "out/index.html",
+	"options_page": "out/options.html",
 	"permissions": ["activeTab", "scripting", "contextMenus", "storage"],
 	"content_security_policy": {
 		"extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
