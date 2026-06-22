@@ -1,26 +1,21 @@
 {
 	"compilerOptions": {
-		"jsx": "react-jsx",
-		"esModuleInterop": true,
-		"moduleResolution": "node",
-		"target": "es6",
-		"lib": ["esnext", "dom"],
-		"noEmit": true,
-		"strict": true,
+		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"incremental": true,
 		"module": "esnext",
 		"resolveJsonModule": true,
-		"isolatedModules": true
+		"isolatedModules": true,
+		"jsx": "react-jsx",
+		"incremental": true,
+		"target": "esnext",
+		"moduleResolution": "bundler",
+		"types": ["chrome", "bun"],
+		"noEmit": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"skipLibCheck": true
 	},
-	"include": [
-		"src/**/*.ts",
-		"pages/**/*.tsx",
-		"components/**/*.tsx",
-		"pkg/*.js",
-		"pkg/*.d.ts"
-	],
+	"include": ["src", "components", "pkg/*.js", "pkg/*.d.ts"],
 	"exclude": ["node_modules"]
 }

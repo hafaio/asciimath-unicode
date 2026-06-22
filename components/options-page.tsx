@@ -10,7 +10,6 @@ import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Head from "next/head";
 import {
 	type ChangeEvent,
 	type ReactElement,
@@ -19,7 +18,7 @@ import {
 	useMemo,
 	useState,
 } from "react";
-import StaticImage from "../components/static-image";
+import amSvg from "../public/am.svg";
 import {
 	defaultOptions,
 	type Options,
@@ -29,21 +28,11 @@ import {
 
 type PartialOptions = Partial<Options>;
 
-// This make sure that public assets also get the proper path
-const publicPrefix =
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-	globalThis.process?.env?.NODE_ENV === "production" ? "/out" : "";
-
 function Hero(): ReactElement {
 	return (
 		<div>
-			<Stack direction="row" justifyContent="space-around">
-				<StaticImage
-					alt="ascii-math"
-					src={`${publicPrefix}/am.svg`}
-					width={128}
-					height={128}
-				/>
+			<Stack direction="row" sx={{ justifyContent: "space-around" }}>
+				<img alt="ascii-math" src={amSvg} width={128} height={128} />
 			</Stack>
 			<Typography variant="h2" align="center">
 				Ascii Math Unicode Options
@@ -114,12 +103,8 @@ function SkinToneRow({
 }
 
 const configs = [
-	// eslint-disable-next-line spellcheck/spell-checker
 	["pruneParens", "Prune parentheses when implied by fractions, etc."],
-	[
-		"vulgarFractions",
-		"Render simple fractions as vulgar fractions (e.g. '\u00bd')",
-	],
+	["vulgarFractions", "Render simple fractions as vulgar fractions (e.g. '½')"],
 	[
 		"scriptFractions",
 		"When rendering fractions, if the numerator and denominator can be rendered as super- and subscripts respectively then render the fraction in this form",
@@ -150,7 +135,6 @@ const unknownOptions: PartialOptions = Object.fromEntries(
 	Object.keys(defaultOptions).map((key) => [key, undefined]),
 );
 const sync: chrome.storage.SyncStorageArea | undefined =
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	globalThis.chrome?.storage?.sync;
 
 export default function OptionsPage(): ReactElement {
@@ -210,12 +194,6 @@ export default function OptionsPage(): ReactElement {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Head>
-				<title>Ascii Math Unicode Options</title>
-				{/* head gets compiled separately and doesn't seem to work with publicPrefic */}
-				{/* eslint-disable-next-line spellcheck/spell-checker */}
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
 			<CssBaseline />
 			<Snackbar open={alerting} autoHideDuration={6000} onClose={stopAlerting}>
 				<Alert onClose={stopAlerting} severity="warning">

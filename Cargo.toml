@@ -1,7 +1,7 @@
 [package]
 name = "convert"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 description = "the wasm binding for asciimath-unicode"
 repository = "https://github.com/hafaio/ascii-math-unicode"
 license = "MIT"

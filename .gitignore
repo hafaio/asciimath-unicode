@@ -3,18 +3,17 @@
 coverage
 tsconfig.tsbuildinfo
 node_modules
-.eslintcache
-.next
 .cache
 
 # Artifacts #
 #############
 convert.js
+convert.js.map
 service_worker.js
+service_worker.js.map
 /*.wasm
 /*.zip
 /out
 /images
-/favicon.ico
 /target
 /pkg

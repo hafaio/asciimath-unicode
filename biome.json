@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.14/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.0/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -10,9 +10,10 @@
 			"*.js",
 			"*.json",
 			"*.ts",
+			"*.html",
 			"components/*.tsx",
-			"pages/*.tsx",
-			"src/*.ts"
+			"src/*.ts",
+			"src/*.tsx"
 		],
 		"ignoreUnknown": false
 	},
@@ -23,7 +24,10 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"preset": "recommended",
+			"style": {
+				"noNonNullAssertion": "off"
+			}
 		}
 	},
 	"javascript": {
