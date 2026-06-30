@@ -1,15 +1,24 @@
-import { boolean, type CompiledSchema, enumeration, properties } from "jtd-ts";
+import { z } from "zod";
 import type { Tone } from "../pkg/convert";
 
 export type SkinTone = keyof typeof Tone;
 
-export interface Options {
-	pruneParens: boolean;
-	vulgarFractions: boolean;
-	scriptFractions: boolean;
-	block: boolean;
-	skinTone: SkinTone;
-}
+export const optionsSchema = z.object({
+	pruneParens: z.boolean(),
+	vulgarFractions: z.boolean(),
+	scriptFractions: z.boolean(),
+	block: z.boolean(),
+	skinTone: z.enum([
+		"Default",
+		"Light",
+		"MediumLight",
+		"Medium",
+		"MediumDark",
+		"Dark",
+	] satisfies readonly SkinTone[]),
+});
+
+export type Options = z.infer<typeof optionsSchema>;
 
 export const defaultOptions: Options = {
 	pruneParens: true,
@@ -18,18 +27,3 @@ export const defaultOptions: Options = {
 	block: false,
 	skinTone: "Default",
 };
-
-export const optionsSchema = properties({
-	pruneParens: boolean(),
-	vulgarFractions: boolean(),
-	scriptFractions: boolean(),
-	block: boolean(),
-	skinTone: enumeration(
-		"Default",
-		"Light",
-		"MediumLight",
-		"Medium",
-		"MediumDark",
-		"Dark",
-	),
-}) satisfies CompiledSchema<Options, unknown>;

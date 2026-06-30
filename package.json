@@ -25,9 +25,9 @@
 		"@types/chrome": "^0.1.43",
 		"@types/react": "^19.2.17",
 		"@types/react-dom": "^19.2.3",
-		"jtd-ts": "^0.2.1",
 		"react": "^19.2.7",
 		"react-dom": "^19.2.7",
-		"typescript": "~6.0.3"
+		"typescript": "~6.0.3",
+		"zod": "^4.4.3"
 	}
 }
