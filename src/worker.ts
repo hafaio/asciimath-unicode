@@ -20,7 +20,9 @@ const initialize = init();
 // add callback for rendering through wasm
 chrome.runtime.onMessage.addListener(
 	(message: unknown, _, send: (resp: Response) => void): boolean => {
-		if (messageSchema.guard(message)) {
+		const parsed = messageSchema.safeParse(message);
+		if (parsed.success) {
+			const { text } = parsed.data;
 			Promise.all([
 				chrome.storage.sync.get(
 					defaultOptions as unknown as Record<string, unknown>,
@@ -28,17 +30,18 @@ chrome.runtime.onMessage.addListener(
 				initialize,
 			]).then(
 				([opts]) => {
+					const optsParsed = optionsSchema.safeParse(opts);
 					const {
 						vulgarFractions,
 						scriptFractions,
 						skinTone,
 						pruneParens,
 						block,
-					} = optionsSchema.guard(opts) ? opts : defaultOptions;
+					} = optsParsed.success ? optsParsed.data : defaultOptions;
 					send({
 						type: "result",
 						result: convert(
-							message.text,
+							text,
 							pruneParens,
 							vulgarFractions,
 							scriptFractions,

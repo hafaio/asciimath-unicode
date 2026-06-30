@@ -1,38 +1,27 @@
-import { type CompiledSchema, discriminator, properties, string } from "jtd-ts";
+import { z } from "zod";
 
-export interface SelectedMessage {
-	text: string;
-}
+export const messageSchema = z.object({
+	text: z.string(),
+});
 
-export const messageSchema = properties({
-	text: string(),
-}) satisfies CompiledSchema<SelectedMessage, unknown>;
+export type SelectedMessage = z.infer<typeof messageSchema>;
 
-export interface ConvertedMessage {
-	type: "result";
-	result: string;
-}
+const responseSchema = z.discriminatedUnion("type", [
+	z.object({ type: z.literal("result"), result: z.string() }),
+	z.object({ type: z.literal("error"), err: z.string() }),
+]);
 
-export interface InitError {
-	type: "error";
-	err: string;
-}
-
-export type Response = ConvertedMessage | InitError;
-
-const responseSchema = discriminator("type", {
-	result: properties({ result: string() }),
-	error: properties({ err: string() }),
-}) satisfies CompiledSchema<Response, unknown>;
+export type Response = z.infer<typeof responseSchema>;
 
 export async function convert(text: string): Promise<string> {
 	const message: SelectedMessage = { text };
 	const response: unknown = await chrome.runtime.sendMessage(message);
-	if (responseSchema.guard(response)) {
-		if (response.type === "result") {
-			return response.result;
+	const parsed = responseSchema.safeParse(response);
+	if (parsed.success) {
+		if (parsed.data.type === "result") {
+			return parsed.data.result;
 		} else {
-			throw new Error(response.err);
+			throw new Error(parsed.data.err);
 		}
 	} else {
 		throw new Error("invalid response");
