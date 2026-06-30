@@ -165,8 +165,9 @@ export default function OptionsPage(): ReactElement {
 			// nothing
 		} else if (sync !== undefined) {
 			sync.get(defaultOptions as unknown as Record<string, unknown>, (opts) => {
-				if (optionsSchema.guard(opts)) {
-					setOptions(opts);
+				const parsed = optionsSchema.safeParse(opts);
+				if (parsed.success) {
+					setOptions(parsed.data);
 				} else {
 					setAlerting(true);
 					setOptions(defaultOptions);
