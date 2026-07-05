@@ -1,9 +1,9 @@
 Ascii Math Unicode
 ==================
 
-[![tests](https://github.com/brinkbotlabs/ascii-math-unicode/actions/workflows/node.js.yml/badge.svg)](https://github.com/brinkbotlabs/ascii-math-unicode/actions/workflows/node.js.yml)
+[![tests](https://github.com/hafaio/asciimath-unicode/actions/workflows/node.js.yml/badge.svg)](https://github.com/hafaio/asciimath-unicode/actions/workflows/node.js.yml)
 [![chrome](https://img.shields.io/badge/chrome-extension-orange)](https://chrome.google.com/webstore/detail/llehdcbaonklonjlfgeggamnebgggoab?authuser=0&hl=en)
-[![license](https://img.shields.io/github/license/hafaio/ascii-math-unicode)](LICENSE)
+[![license](https://img.shields.io/github/license/hafaio/asciimath-unicode)](LICENSE)
 
 A chrome extension for rendering [ascii math](http://asciimath.org/) as unicode.
 
@@ -17,7 +17,7 @@ sum_(i=1)^n i^3=((n(n+1))/2)^2
 
 You'll convert it to:
 ```
-∑ᵢ₌₁ⁿ i³=(ⁿ⁽ⁿ⁺¹⁾⁄₂)²
+∑₍ᵢ₌₁₎ⁿi³=(ⁿ⁽ⁿ⁺¹⁾⁄₂)²
 ```
 
 While not a perfect represention, this is more portable than an image, and can often be easier to read.
@@ -34,12 +34,12 @@ Development
 
 Compile a local version for development testing
 ```
-yarn build
+bun export
 ```
 
 Compile a zip for upload to the store
 ```
-yarn pack
+bun run pack
 ```
 
 To Do

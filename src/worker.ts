@@ -31,6 +31,13 @@ chrome.runtime.onMessage.addListener(
 			]).then(
 				([opts]) => {
 					const optsParsed = optionsSchema.safeParse(opts);
+					if (!optsParsed.success) {
+						console.error(
+							"stored options failed validation; using defaults",
+							optsParsed.error,
+							opts,
+						);
+					}
 					const {
 						vulgarFractions,
 						scriptFractions,
@@ -38,17 +45,22 @@ chrome.runtime.onMessage.addListener(
 						pruneParens,
 						block,
 					} = optsParsed.success ? optsParsed.data : defaultOptions;
-					send({
-						type: "result",
-						result: convert(
-							text,
-							pruneParens,
-							vulgarFractions,
-							scriptFractions,
-							Tone[skinTone],
-							block,
-						),
-					});
+					try {
+						send({
+							type: "result",
+							result: convert(
+								text,
+								pruneParens,
+								vulgarFractions,
+								scriptFractions,
+								Tone[skinTone],
+								block,
+							),
+						});
+					} catch (err) {
+						console.error(err);
+						send({ type: "error", err: "conversion error" });
+					}
 				},
 				(err: unknown) => {
 					console.error(err);
@@ -76,21 +88,25 @@ chrome.commands.onCommand.addListener((command, tab) => {
 
 // add convert context menu
 const contextMenuId = "ascii math unicode";
-chrome.contextMenus.create(
-	{
-		id: contextMenuId,
-		title: "Render selection as ascii math",
-		contexts: ["selection"],
-	},
-	() => {
-		if (chrome.runtime.lastError) {
-			console.error(
-				"couldn't register context menu",
-				chrome.runtime.lastError.message,
-			);
-		}
-	},
-);
+chrome.runtime.onInstalled.addListener(() => {
+	chrome.contextMenus.removeAll(() => {
+		chrome.contextMenus.create(
+			{
+				id: contextMenuId,
+				title: "Render selection as unicode",
+				contexts: ["selection"],
+			},
+			() => {
+				if (chrome.runtime.lastError) {
+					console.error(
+						"couldn't register context menu",
+						chrome.runtime.lastError.message,
+					);
+				}
+			},
+		);
+	});
+});
 
 chrome.contextMenus.onClicked.addListener(({ menuItemId }, tab) => {
 	if (menuItemId === contextMenuId) {
