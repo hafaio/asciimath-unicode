@@ -4,18 +4,18 @@ version = 4
 
 [[package]]
 name = "asciimath-parser"
-version = "0.1.2"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69ccc6f9250cbff6c20a880a8c3611eeb48105d5d8e2a98d5a4e0380c78319bc"
+checksum = "3d80d5a4662e6045b74e3ae65d22e9555ce372e2ccf07daa7b86e946a8984d27"
 dependencies = [
  "qp-trie",
 ]
 
 [[package]]
 name = "asciimath-unicode"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d8ad3bfa9e624c11da11ce356ae7b754bd7f0c76e991eb7f9072c30d709ffe6"
+checksum = "2b948feb5a703a82964661e5bf3dad43ecfc252e30813fa3964c116ec7734215"
 dependencies = [
  "asciimath-parser",
  "emojis",
@@ -45,9 +45,9 @@ dependencies = [
 
 [[package]]
 name = "emojis"
-version = "0.8.2"
+version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0a4d5d50b0b58df5173d8ff1192b4d1422ceae5d981b30d4b6f8ed1d673a2bc4"
+checksum = "0b1514ced566c94991ed9563258ecf61e311fd773bf0a3f20606830386bf66e3"
 dependencies = [
  "phf",
 ]

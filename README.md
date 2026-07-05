@@ -17,7 +17,7 @@ sum_(i=1)^n i^3=((n(n+1))/2)^2
 
 You'll convert it to:
 ```
-∑₍ᵢ₌₁₎ⁿi³=(ⁿ⁽ⁿ⁺¹⁾⁄₂)²
+∑ᵢ₌₁ⁿi³=(ⁿ⁽ⁿ⁺¹⁾⁄₂)²
 ```
 
 While not a perfect represention, this is more portable than an image, and can often be easier to read.
