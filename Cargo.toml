@@ -11,7 +11,7 @@ publish = false
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-asciimath-unicode = "0.3"
+asciimath-unicode = "0.4"
 wasm-bindgen = "0.2"
 
 [profile.release]
