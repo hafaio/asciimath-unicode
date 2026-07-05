@@ -75,7 +75,7 @@ function SkinToneRow({
 	const disabled = value === undefined;
 	const change = useCallback(
 		(evt: SelectChangeEvent<SkinTone>) => {
-			setValue(evt.target.value as SkinTone);
+			setValue(optionsSchema.shape.skinTone.parse(evt.target.value));
 		},
 		[setValue],
 	);
@@ -88,9 +88,9 @@ function SkinToneRow({
 		>
 			<MenuItem value="Default">{BASE_EMOJI}</MenuItem>
 			<MenuItem value="Dark">{BASE_EMOJI}&#127999;</MenuItem>
-			<MenuItem value="Medium Dark">{BASE_EMOJI}&#127998;</MenuItem>
+			<MenuItem value="MediumDark">{BASE_EMOJI}&#127998;</MenuItem>
 			<MenuItem value="Medium">{BASE_EMOJI}&#127997;</MenuItem>
-			<MenuItem value="Medium Light">{BASE_EMOJI}&#127996;</MenuItem>
+			<MenuItem value="MediumLight">{BASE_EMOJI}&#127996;</MenuItem>
 			<MenuItem value="Light">{BASE_EMOJI}&#127995;</MenuItem>
 		</Select>
 	);
