@@ -13,9 +13,9 @@ dependencies = [
 
 [[package]]
 name = "asciimath-unicode"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b948feb5a703a82964661e5bf3dad43ecfc252e30813fa3964c116ec7734215"
+checksum = "51e1b72fb30f84406b30d9c6ca7960641b4f85755d383d6acf7b5899382b73e4"
 dependencies = [
  "asciimath-parser",
  "emojis",
