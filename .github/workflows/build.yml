@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
     - uses: oven-sh/setup-bun@v2
       with:
         bun-version: 1.3.14
@@ -14,7 +14,7 @@ jobs:
       with:
         components: clippy, rustfmt
     - uses: Swatinem/rust-cache@v2
-    - uses: taiki-e/install-action@v2
+    - uses: taiki-e/install-action@v2.87.1
       with:
         tool: wasm-pack
     - run: bun install --frozen-lockfile
@@ -22,3 +22,19 @@ jobs:
     - run: bun lint
     - run: bun test
     - run: bun export:bundle
+
+  automerge:
+    needs: [ build ]
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    # dependabot-triggered runs get a read-only token unless a job asks for more
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - run: gh pr merge --squash --match-head-commit "$HEAD_SHA" "$PR_URL"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_URL: ${{ github.event.pull_request.html_url }}
+        HEAD_SHA: ${{ github.event.pull_request.head.sha }}
