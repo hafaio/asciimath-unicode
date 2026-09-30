@@ -11,9 +11,9 @@
 			"*.json",
 			"*.ts",
 			"*.html",
-			"components/*.tsx",
-			"src/*.ts",
-			"src/*.tsx"
+			"scripts/*.ts",
+			"src/**/*.ts",
+			"src/**/*.tsx"
 		],
 		"ignoreUnknown": false
 	},

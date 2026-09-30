@@ -1,5 +1,13 @@
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import OptionsPage from "../components/options-page";
+import { OptionsPage } from "./options-page";
 
-const container = document.getElementById("root")!;
-createRoot(container).render(<OptionsPage />);
+const root = document.getElementById("root");
+if (root === null) {
+	throw new Error("missing #root");
+}
+createRoot(root).render(
+	<StrictMode>
+		<OptionsPage />
+	</StrictMode>,
+);
