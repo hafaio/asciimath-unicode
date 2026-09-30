@@ -9,7 +9,8 @@ test("options", () => {
 	expect(optionsSchema.safeParse(defaultOptions).success).toBeTrue();
 });
 
-test("old options format missing block is rejected", () => {
-	const { block: _, ...oldFormat } = defaultOptions;
-	expect(optionsSchema.safeParse(oldFormat).success).toBeFalse();
+test("stored options from the block era still parse", () => {
+	const parsed = optionsSchema.safeParse({ ...defaultOptions, block: true });
+	expect(parsed.success).toBeTrue();
+	expect(parsed.data).toEqual(defaultOptions);
 });

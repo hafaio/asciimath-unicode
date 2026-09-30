@@ -40,13 +40,8 @@ chrome.runtime.onMessage.addListener(
 							opts,
 						);
 					}
-					const {
-						vulgarFractions,
-						scriptFractions,
-						skinTone,
-						pruneParens,
-						block,
-					} = optsParsed.success ? optsParsed.data : defaultOptions;
+					const { vulgarFractions, scriptFractions, skinTone, pruneParens } =
+						optsParsed.success ? optsParsed.data : defaultOptions;
 					try {
 						send({
 							type: "result",
@@ -56,7 +51,6 @@ chrome.runtime.onMessage.addListener(
 								vulgarFractions,
 								scriptFractions,
 								Tone[skinTone],
-								block,
 							),
 						});
 					} catch (err) {

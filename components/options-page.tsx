@@ -109,7 +109,6 @@ const configs = [
 		"scriptFractions",
 		"When rendering fractions, if the numerator and denominator can be rendered as super- and subscripts respectively then render the fraction in this form",
 	],
-	["block", "Use block (multi-line) rendering instead of inline rendering"],
 ] as const;
 
 function OptionRows({
