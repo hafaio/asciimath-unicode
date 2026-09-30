@@ -1,6 +1,6 @@
 #![warn(clippy::pedantic)]
 
-use asciimath_unicode::{Conf, SkinTone};
+use asciimath_unicode::{Conf, Layout, SkinTone};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
@@ -28,22 +28,22 @@ impl From<Tone> for SkinTone {
 
 #[must_use]
 #[wasm_bindgen]
-#[allow(clippy::fn_params_excessive_bools)]
 pub fn convert(
     inp: &str,
     strip_brackets: bool,
     vulgar_fracs: bool,
     script_fracs: bool,
     skin_tone: Tone,
-    block: bool,
 ) -> String {
-    Conf {
-        strip_brackets,
-        vulgar_fracs,
-        script_fracs,
-        skin_tone: skin_tone.into(),
-        block,
-    }
-    .parse(inp)
-    .to_string()
+    Conf::default()
+        .with_strip_brackets(strip_brackets)
+        .with_vulgar_fracs(vulgar_fracs)
+        .with_skin_tone(skin_tone.into())
+        .with_layout(if script_fracs {
+            Layout::InlineScript
+        } else {
+            Layout::InlinePlain
+        })
+        .parse(inp)
+        .to_string()
 }
