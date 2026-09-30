@@ -11,7 +11,7 @@
 		"lint": "tsc && biome check && cargo fmt --check && cargo clippy -- -D warnings",
 		"export:wasm": "wasm-pack build -t web && cp pkg/convert_bg.wasm .",
 		"export:images": "mkdir -p images && <<< $'16\n32\n48\n128' xargs -I@ rsvg-convert -w @ -h @ public/am.svg -o images/am@.png",
-		"export:bundle": "bun build src/worker.ts --outfile service_worker.js --minify --define import.meta.url=location.origin && bun build src/convert.ts --outfile convert.js --minify --format=iife && bun build ./options.html --outdir out --sourcemap=linked --chunk-naming \"[name].[ext]\" --asset-naming \"[name].[ext]\"",
+		"export:bundle": "bun build src/worker.ts --outfile service_worker.js --minify && bun build src/convert.ts --outfile convert.js --minify --format=iife && bun build ./options.html --outdir out --sourcemap=linked --chunk-naming \"[name].[ext]\" --asset-naming \"[name].[ext]\"",
 		"export:pack": "zip -r --filesync asciimath-unicode.zip manifest.json images/*.png convert.js service_worker.js convert_bg.wasm out",
 		"export": "bun export:images && bun export:wasm && bun export:bundle && bun export:pack",
 		"pack": "bun lint && bun test --coverage && bun export"
