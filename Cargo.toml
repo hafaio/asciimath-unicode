@@ -3,7 +3,7 @@ name = "convert"
 version = "0.1.0"
 edition = "2024"
 description = "the wasm binding for asciimath-unicode"
-repository = "https://github.com/hafaio/asciimath-unicode"
+repository = "https://github.com/hafacc/asciimath-unicode"
 license = "MIT"
 publish = false
 
