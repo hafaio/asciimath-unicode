@@ -1,7 +1,18 @@
-/** Every string a user of the extension reads, except those in manifest.json. */
+/**
+ * Every string a user of the extension reads, except those in manifest.json
+ * and options.html.
+ */
 export const copy = {
 	optionsTitle: "Ascii Math Unicode",
 	optionsSubtitle: "Options",
+	usageHeading: "Usage",
+	usage:
+		"Click the extension's icon to turn it on for a page before you type. Then type math between the markers.",
+	tryLabel: "Try it",
+	tryPlaceholder: (math: string): string => `Try it: type ${math}`,
+	sectionTurningOn: "Turning it on",
+	sectionTyping: "Typing",
+	sectionOutput: "Output",
 	optionsReadError: "Error reading options; resetting to default",
 	pruneParens: "Drop parentheses that fractions and scripts already imply",
 	vulgarFractions: "Use single-character fractions like ½",
@@ -15,4 +26,19 @@ export const copy = {
 		MediumDark: "Medium-dark skin tone",
 		Dark: "Dark skin tone",
 	},
+	delimiter: "Math markers",
+	errorBadge: "!",
+	errorRestrictedPage: "Chrome doesn't let extensions run on this page",
+	errorConversion: "Couldn't convert this ascii math",
+	wholeSite: "Stay on for the whole site",
+	wholeSiteHint:
+		"Chrome will ask to read and change your data on each site you turn on",
+	actionEnable: "Click to convert ascii math on this page",
+	actionDisable: "Click to stop converting ascii math on this page",
+	actionDisableSite: "Click to stop converting ascii math on this site",
+	errorSiteUnsupported: "Chrome doesn't let extensions run on this page",
+	hotkeyHeading: "Keyboard shortcut",
+	hotkeyMissing:
+		"No shortcut set. Chrome skips it when another extension already uses the same keys.",
+	hotkeyOpenSettings: "Change shortcut",
 };
