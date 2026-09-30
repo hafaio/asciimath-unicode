@@ -15,7 +15,9 @@ function convertSelectionOnTab(tab: chrome.tabs.Tab): void {
 	}
 }
 
-const initialize = init();
+const initialize = init({
+	module_or_path: chrome.runtime.getURL("convert_bg.wasm"),
+});
 
 // add callback for rendering through wasm
 chrome.runtime.onMessage.addListener(
