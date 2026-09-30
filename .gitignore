@@ -7,8 +7,8 @@ node_modules
 
 # Artifacts #
 #############
-convert.js
-convert.js.map
+autosub.js
+autosub.js.map
 service_worker.js
 service_worker.js.map
 /*.wasm

@@ -1,9 +1,10 @@
 {
 	"name": "Ascii Math Unicode",
-	"description": "A tool for rendering selected ascii math as unicode",
+	"description": "Render ascii math as unicode as you type",
 	"version": "3.1.0",
 	"options_page": "out/options.html",
-	"permissions": ["activeTab", "scripting", "contextMenus", "storage"],
+	"permissions": ["activeTab", "scripting", "storage"],
+	"optional_host_permissions": ["<all_urls>"],
 	"content_security_policy": {
 		"extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
 	},
@@ -12,14 +13,19 @@
 		"type": "module"
 	},
 	"action": {
-		"default_title": "Convert selected ascii math"
+		"default_title": "Click to convert ascii math on this page",
+		"default_icon": {
+			"16": "/images/am-grey16.png",
+			"32": "/images/am-grey32.png"
+		}
 	},
 	"commands": {
 		"ascii-math-unicode": {
 			"suggested_key": {
-				"default": "Ctrl+Shift+K"
+				"default": "Alt+Shift+U",
+				"mac": "MacCtrl+Shift+U"
 			},
-			"description": "Convert current selection from ascii math to unicode"
+			"description": "Turn converting ascii math on or off"
 		}
 	},
 	"icons": {

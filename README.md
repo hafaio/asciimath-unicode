@@ -7,12 +7,16 @@ Ascii Math Unicode
 
 A chrome extension for rendering [ascii math](http://asciimath.org/) as unicode.
 
-When installed, you can select text and then by clicking the extension, opening the context menu, or activating a hotkey, convert the text into unicode.
+Clicking the extension's icon, or pressing its hotkey (Alt+Shift+U, or Control+Shift+U on Mac), turns on conversion as you type for the current page until you reload it or leave.
+With "Stay on for the whole site" in the options, it stays on for the site instead, after Chrome asks for access to it.
+Finishing a delimited span in a text box replaces it with unicode: `$$x^2$$` converts as soon as the closing `$$` is typed, as do complete spans in pasted text. A single `$` needs a space or punctuation after the closing `$`, so prices stay as typed. Undo restores the original, which then stays as typed.
+The icon is grey where this is off.
+The delimiters (`$$…$$` by default) are in the options.
 
-For example, highlighting the following text (the example from ascii math):
+For example, typing the following (the example from ascii math):
 
 ```
-sum_(i=1)^n i^3=((n(n+1))/2)^2
+$$sum_(i=1)^n i^3=((n(n+1))/2)^2$$
 ```
 
 You'll convert it to:
