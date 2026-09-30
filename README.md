@@ -1,9 +1,9 @@
 Ascii Math Unicode
 ==================
 
-[![build](https://github.com/hafaio/asciimath-unicode/actions/workflows/build.yml/badge.svg)](https://github.com/hafaio/asciimath-unicode/actions/workflows/build.yml)
+[![build](https://github.com/hafacc/asciimath-unicode/actions/workflows/build.yml/badge.svg)](https://github.com/hafacc/asciimath-unicode/actions/workflows/build.yml)
 [![chrome](https://img.shields.io/badge/chrome-extension-orange)](https://chrome.google.com/webstore/detail/llehdcbaonklonjlfgeggamnebgggoab?authuser=0&hl=en)
-[![license](https://img.shields.io/github/license/hafaio/asciimath-unicode)](LICENSE)
+[![license](https://img.shields.io/github/license/hafacc/asciimath-unicode)](LICENSE)
 
 A chrome extension for rendering [ascii math](http://asciimath.org/) as unicode.
 
