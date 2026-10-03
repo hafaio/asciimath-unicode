@@ -1,5 +1,5 @@
-# Cut a release: bump the version and tag it, then dispatch release off the tag.
-name: cut
+# Cut a release of the extension: bump the version and tag it, then dispatch release off the tag.
+name: ext-cut
 on:
   workflow_dispatch:
     inputs:
@@ -13,7 +13,7 @@ permissions: {}
 
 jobs:
   gate:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/ext-build.yml
     permissions:
       contents: read
 
@@ -23,6 +23,9 @@ jobs:
     permissions:
       contents: write # push the bump + tag
       actions: write # dispatch release
+    defaults:
+      run:
+        working-directory: extension
     steps:
     - uses: actions/checkout@v7
       with:
@@ -50,10 +53,10 @@ jobs:
       run: |
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
-        git commit -am "v$version"
+        git commit -am "extension v$version"
         # branch first, tag second (never --follow-tags): a moved main is rejected before the tag exists
         git push origin HEAD:main
-        git tag -a "v$version" -m "v$version"
-        git push origin "v$version"
+        git tag -a "extension-v$version" -m "extension v$version"
+        git push origin "extension-v$version"
         # token-pushed tags don't fire on:push, so dispatch instead
-        gh workflow run release.yml --ref main -f tag="v$version"
+        gh workflow run ext-release.yml --ref main -f tag="extension-v$version"

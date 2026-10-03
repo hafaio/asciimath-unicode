@@ -1,18 +1,6 @@
-[package]
-name = "convert"
-version = "0.1.0"
-edition = "2024"
-description = "the wasm binding for asciimath-unicode"
-repository = "https://github.com/hafacc/asciimath-unicode"
-license = "MIT"
-publish = false
-
-[lib]
-crate-type = ["cdylib", "rlib"]
-
-[dependencies]
-asciimath-unicode = "0.5"
-wasm-bindgen = "0.2"
+[workspace]
+resolver = "3"
+members = ["extension"]
 
 [profile.release]
 opt-level = "s"
