@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" opacity="0.6">
+  <!-- the summation sign is Latin Modern Math's, used under the GUST Font License -->
+  <mask id="glyph">
+    <rect width="256" height="256" fill="#ffffff"/>
+    <path d="M206 172.5H203C198.5 184.7 186 192.7 172.6 196.2C170.1 196.8 158.6 199.8 136.1 199.8H65.5L125.1 129.9C126 128.9 126.2 128.6 126.2 128C126.2 128 126.2 127.4 125.4 126.2L70.8 51.6H135C150.7 51.6 161.3 53.3 162.4 53.5C168.7 54.4 178.9 56.4 188.2 62.3C191.1 64.2 199 69.4 203 78.9H206L191.8 46H53.3C50.6 46 50.5 46.1 50.2 46.8C50 47.2 50 49.4 50 50.7L112 135.5L51.3 206.6C50.2 208 50.2 208.7 50.2 208.7C50.2 210 51.2 210 53.3 210H191.8Z" fill="#000000" stroke="#000000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(128 128) scale(0.82) translate(-128 -128)"/>
+  </mask>
+  <rect width="256" height="256" rx="60" fill="#80868b" mask="url(#glyph)"/>
+</svg>
