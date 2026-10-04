@@ -1,0 +1,14 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+    "extends": ["../extension/biome.json"],
+    "files": {
+        "includes": [
+            "*.js",
+            "*.json",
+            "*.ts",
+            "*.html",
+            "src/**/*.ts",
+            "src/**/*.svelte"
+        ]
+    }
+}

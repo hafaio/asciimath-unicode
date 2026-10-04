@@ -1,4 +1,4 @@
 {
-	"private": true,
-	"workspaces": ["extension"]
+    "private": true,
+    "workspaces": ["extension", "site"]
 }
