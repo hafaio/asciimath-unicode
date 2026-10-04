@@ -81,28 +81,6 @@ function editReaches(edit: TextEdit, from: number, to: number): boolean {
 		: edit.start < to && from < edit.end;
 }
 
-/** the characters whose change can complete a span: markers and boundaries */
-function completingZones(
-	span: Span,
-	delimiter: DelimiterName,
-): [number, number][] {
-	const markers: [number, number][] = [
-		[span.start, span.contentStart],
-		[span.contentEnd, span.end],
-	];
-	if (delimiter === "dollar") {
-		return [
-			...markers,
-			[span.start - 1, span.start],
-			[span.end, span.end + 1],
-			[span.contentStart, span.contentStart + 1],
-			[span.contentEnd - 1, span.contentEnd],
-		];
-	} else {
-		return markers;
-	}
-}
-
 /** where a position in `after` was in `before`, if it wasn't in the edit */
 function positionBefore(position: number, edit: TextEdit): number | undefined {
 	if (position <= edit.start) {
@@ -135,9 +113,8 @@ function spanExisted(
 
 /**
  * Spans an edit completed. A typed or deleted edit completes a span when it
- * changes one of the span's markers or the characters its boundary rules
- * check, and the span wasn't already complete. Inserted text, as from a
- * paste, completes every span it overlaps.
+ * changes one of the span's markers and the span wasn't already complete.
+ * Inserted text, as from a paste, completes every span it overlaps.
  */
 export function completedSpans(
 	before: string,
@@ -164,9 +141,9 @@ export function completedSpans(
 			const isCompleted =
 				kind === "inserted"
 					? edit.start < span.end && span.start < edit.end
-					: completingZones(span, delimiter).some(([from, to]) =>
-							editReaches(edit, from, to),
-						) && !spanExisted(before, span, edit, delimiter);
+					: (editReaches(edit, span.start, span.contentStart) ||
+							editReaches(edit, span.contentEnd, span.end)) &&
+						!spanExisted(before, span, edit, delimiter);
 			if (isCompleted) {
 				completed.push({
 					start: span.start,
