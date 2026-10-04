@@ -1,0 +1,62 @@
+# Cut a release of the keyboard: bump the version and tag it, then dispatch release off the tag.
+name: keyboard-cut
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: semver bump
+        type: choice
+        options: [ patch, minor, major ]
+        default: patch
+
+permissions: {}
+
+jobs:
+  gate:
+    uses: ./.github/workflows/keyboard-build.yml
+    permissions:
+      contents: read
+
+  cut:
+    needs: gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # push the bump + tag
+      actions: write # dispatch release
+    defaults:
+      run:
+        working-directory: keyboard
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        ref: main # the branch tip, not the dispatch SHA
+    - name: bump version
+      id: bump
+      # Info.plist is the version source of truth, in both of its version keys
+      env:
+        bump: ${{ inputs.bump }}
+      run: |
+        current=$(perl -0ne 'print $1 if /<key>CFBundleShortVersionString<\/key>\s*<string>([^<]*)</' Info.plist)
+        IFS=. read -r major minor patch <<< "$current"
+        case "$bump" in
+          major) version="$((major + 1)).0.0" ;;
+          minor) version="$major.$((minor + 1)).0" ;;
+          *) version="$major.$minor.$((patch + 1))" ;;
+        esac
+        version="$version" perl -0pi -e \
+          's/(<key>CFBundle(?:ShortVersionString|Version)<\/key>\s*<string>)[^<]*/$1$ENV{version}/g' Info.plist
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+    - name: commit, tag, and trigger release
+      env:
+        GH_TOKEN: ${{ github.token }}
+        version: ${{ steps.bump.outputs.version }}
+      run: |
+        git config user.name 'github-actions[bot]'
+        git config user.email 'github-actions[bot]@users.noreply.github.com'
+        git commit -am "keyboard v$version"
+        # branch first, tag second (never --follow-tags): a moved main is rejected before the tag exists
+        git push origin HEAD:main
+        git tag -a "keyboard-v$version" -m "keyboard v$version"
+        git push origin "keyboard-v$version"
+        # token-pushed tags don't fire on:push, so dispatch instead
+        gh workflow run keyboard-release.yml --ref main -f tag="keyboard-v$version"

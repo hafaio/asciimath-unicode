@@ -1,0 +1,21 @@
+name: keyboard-build
+on: [ push, pull_request, workflow_call ]
+
+defaults:
+  run:
+    working-directory: keyboard
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v7
+    - uses: dtolnay/rust-toolchain@stable
+      with:
+        components: clippy, rustfmt
+    - uses: Swatinem/rust-cache@v2
+    - run: xcodebuild -quiet -project AsciiMathUnicode.xcodeproj -scheme AsciiMathUnicode -derivedDataPath build test
+    - run: xcodebuild -quiet -project AsciiMathUnicode.xcodeproj -scheme AsciiMathUnicode -derivedDataPath build -configuration Release ARCHS=arm64 build
+    - run: plutil -lint build/Build/Products/Release/AsciiMathUnicode.app/Contents/Info.plist
+    - run: codesign --verify --strict --verbose build/Build/Products/Release/AsciiMathUnicode.app

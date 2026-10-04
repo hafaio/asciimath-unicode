@@ -1,0 +1,4 @@
+#!/bin/sh
+# A running copy keeps serving the old code; the system starts the new one at the next key press.
+killall AsciiMathUnicode 2>/dev/null
+exit 0

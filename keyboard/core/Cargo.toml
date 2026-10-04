@@ -1,0 +1,17 @@
+[package]
+name = "keyboard-core"
+version = "0.1.0"
+edition = "2024"
+description = "the Swift binding for asciimath-unicode"
+repository = "https://github.com/hafacc/asciimath-unicode"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[dependencies]
+asciimath-unicode = "0.5.1"
+
+[dev-dependencies]
+convert = { path = "../../extension" }
