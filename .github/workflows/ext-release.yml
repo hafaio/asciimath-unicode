@@ -1,15 +1,19 @@
-# Build a tagged version and attach it to a GitHub release; safe to rerun on the same tag.
-name: release
+# Build a tagged version of the extension and attach it to a GitHub release; safe to rerun on the same tag.
+name: ext-release
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: release tag to publish (e.g. v1.2.3)
+        description: release tag to publish (e.g. extension-v1.2.3)
         required: true
         type: string
 
 permissions:
   contents: write # create the GitHub release
+
+defaults:
+  run:
+    working-directory: extension
 
 jobs:
   release:
@@ -37,5 +41,6 @@ jobs:
         if gh release view "$tag" > /dev/null 2>&1; then
           gh release upload "$tag" asciimath-unicode.zip --clobber
         else
-          gh release create "$tag" --generate-notes --verify-tag asciimath-unicode.zip
+          # the repo's "latest" release is always the keyboard's, which is downloaded from here
+          gh release create "$tag" --generate-notes --verify-tag --latest=false asciimath-unicode.zip
         fi

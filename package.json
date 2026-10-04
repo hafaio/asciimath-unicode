@@ -1,38 +1,4 @@
 {
 	"private": true,
-	"name": "asciimath-unicode",
-	"version": "0.0.0",
-	"author": "Erik Brinkman <erik.brinkman@gmail.com>",
-	"license": "MIT",
-	"type": "module",
-	"scripts": {
-		"fmt": "biome format --write && cargo fmt",
-		"dev": "bun ./options.html",
-		"lint": "tsc && biome check && cargo fmt --check && cargo clippy -- -D warnings",
-		"export:wasm": "wasm-pack build -t web && cp pkg/convert_bg.wasm .",
-		"export:images": "mkdir -p images && sed 's/#000000/#80868b/g; s/stroke:#ffffff/stroke:none/; s/^<svg$/<svg opacity=\"0.6\"/' public/am.svg > images/am-grey.svg && <<< $'16\n32\n48\n128' xargs -I@ rsvg-convert -w @ -h @ public/am.svg -o images/am@.png && <<< $'16\n32' xargs -I@ rsvg-convert -w @ -h @ images/am-grey.svg -o images/am-grey@.png",
-		"export:bundle": "bun build src/worker.ts --outfile service_worker.js --minify && bun build src/autosub.ts --outfile autosub.js --minify --format=iife && bun scripts/build-options.ts",
-		"export:pack": "zip -r --filesync asciimath-unicode.zip manifest.json images/*.png autosub.js service_worker.js convert_bg.wasm out",
-		"export": "bun export:images && bun export:wasm && bun export:bundle && bun export:pack",
-		"pack": "bun lint && bun test --coverage && bun export"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.5.15",
-		"@fontsource/dm-mono": "^5.3.0",
-		"@fontsource/space-grotesk": "^5.3.0",
-		"@types/bun": "^1.4.2",
-		"@types/chrome": "^0.3.4",
-		"@types/react": "^19.3.0",
-		"@types/react-dom": "^19.3.0",
-		"bun-plugin-tailwind": "^0.1.2",
-		"class-variance-authority": "^0.7.1",
-		"clsx": "^2.1.1",
-		"radix-ui": "^1.6.7",
-		"react": "^19.3.0",
-		"react-dom": "^19.3.0",
-		"tailwind-merge": "^3.7.0",
-		"tailwindcss": "^4.3.3",
-		"typescript": "~7.0.2",
-		"zod": "^4.6.5"
-	}
+	"workspaces": ["extension"]
 }
