@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleExecutable</key>
+	<string>AsciiMathUnicode</string>
+	<key>CFBundleIdentifier</key>
+	<string>cc.hafa.inputmethod.AsciiMathUnicode</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Ascii Math Unicode</string>
+	<key>CFBundleDisplayName</key>
+	<string>Ascii Math Unicode</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1.0</string>
+	<key>CFBundleVersion</key>
+	<string>0.1.0</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>InputMethodConnectionName</key>
+	<string>cc.hafa.inputmethod.AsciiMathUnicode_Connection</string>
+	<key>InputMethodServerControllerClass</key>
+	<string>AsciiMathInputController</string>
+	<key>TISInputSourceID</key>
+	<string>cc.hafa.inputmethod.AsciiMathUnicode</string>
+	<key>TISIntendedLanguage</key>
+	<string>en</string>
+	<key>TISIconIsTemplate</key>
+	<true/>
+	<key>tsInputMethodIconFileKey</key>
+	<string>MenuIcon.tiff</string>
+	<key>tsInputMethodCharacterRepertoireKey</key>
+	<array>
+		<string>Latn</string>
+	</array>
+</dict>
+</plist>

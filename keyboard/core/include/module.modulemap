@@ -1,0 +1,5 @@
+module CAsciiMathCore {
+    header "asciimath_core.h"
+    link "keyboard_core"
+    export *
+}

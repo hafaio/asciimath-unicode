@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["extension"]
+members = ["extension", "keyboard/core"]
 
 [profile.release]
 opt-level = "s"
