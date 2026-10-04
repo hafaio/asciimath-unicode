@@ -1,19 +1,2 @@
-# Cache #
-#########
-coverage
-tsconfig.tsbuildinfo
 node_modules
-.cache
-
-# Artifacts #
-#############
-autosub.js
-autosub.js.map
-service_worker.js
-service_worker.js.map
-/*.wasm
-/*.zip
-/out
-/images
 /target
-/pkg

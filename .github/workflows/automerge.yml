@@ -1,10 +1,10 @@
 name: automerge
 
-# Split out of build.yml: a workflow reused as a gate can only narrow its caller's token, so
+# Split out of ext-build.yml: a workflow reused as a gate can only narrow its caller's token, so
 # the write scopes below would break any release or deploy that calls it.
 on:
   workflow_run:
-    workflows: [build]
+    workflows: [ext-build]
     types: [completed]
 
 jobs:
