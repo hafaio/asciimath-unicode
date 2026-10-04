@@ -27,3 +27,13 @@ test("an invalid option falls back alone", () => {
 	expect(invalid).toEqual(["delimiter"]);
 	expect(options).toEqual({ ...defaultOptions, pruneParens: false });
 });
+
+test("a removed delimiter becomes the default without counting as invalid", () => {
+	const { options, invalid } = parseOptions({
+		...defaultOptions,
+		pruneParens: false,
+		delimiter: "dollar",
+	});
+	expect(invalid).toEqual([]);
+	expect(options).toEqual({ ...defaultOptions, pruneParens: false });
+});

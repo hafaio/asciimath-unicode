@@ -9,7 +9,7 @@ A chrome extension for rendering [ascii math](http://asciimath.org/) as unicode.
 
 Clicking the extension's icon, or pressing its hotkey (Alt+Shift+U, or Control+Shift+U on Mac), turns on conversion as you type for the current page until you reload it or leave.
 With "Stay on for the whole site" in the options, it stays on for the site instead, after Chrome asks for access to it.
-Finishing a delimited span in a text box replaces it with unicode: `$$x^2$$` converts as soon as the closing `$$` is typed, as do complete spans in pasted text. A single `$` needs a space or punctuation after the closing `$`, so prices stay as typed. Undo restores the original, which then stays as typed.
+Finishing a delimited span in a text box replaces it with unicode: `$$x^2$$` converts as soon as the closing `$$` is typed, as do complete spans in pasted text. Undo restores the original, which then stays as typed.
 The icon is grey where this is off.
 The delimiters (`$$…$$` by default) are in the options.
 
