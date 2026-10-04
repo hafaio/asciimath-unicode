@@ -19,9 +19,9 @@ public struct Outcome: Equatable, Sendable {
 /// Ordinary typing passes through untouched. From the first character of the opening delimiter
 /// the typed text is held instead of reaching the document, and `Outcome.marked` shows it as the
 /// opening delimiter followed by the math converted so far. Typing the closing delimiter hands
-/// over the converted math without its delimiters. Escape, return, any `Key.other` and
-/// `endInput()` hand over the held text exactly as typed, and backspace removes its last
-/// character.
+/// over the converted math without its delimiters, and so does return once there is math.
+/// Escape, any `Key.other` and `endInput()` hand over the held text exactly as typed, and
+/// backspace removes its last character.
 ///
 /// The delimiters follow the rules of the extension's `findSpans`: math is at least one
 /// character, and a delimiter after an odd number of backslashes is plain text. The delimiter is
@@ -81,7 +81,9 @@ public struct Composer {
     ///   holding, so that it lands after what was held. It is never passed through as well.
     /// - `Key.backspace` removes the last held character, back through the opening delimiter.
     /// - `Key.escape` hands over the held text as typed and is not passed through.
-    /// - `Key.enter` and `Key.other` hand over the held text as typed and are passed through.
+    /// - `Key.enter` hands over the held math converted and is not passed through; with no math
+    ///   held it acts as `Key.other`.
+    /// - `Key.other` hands over the held text as typed and is passed through.
     ///
     /// `Outcome.marked` is the held text to show after the key, converted with placeholders.
     public mutating func press(_ key: Key) -> Outcome {
@@ -113,7 +115,17 @@ public struct Composer {
             } else {
                 return Outcome(passThrough: true)
             }
-        case .enter, .other:
+        case .enter:
+            let math = content.dropLast(closerTail.count)
+            if math.isEmpty {
+                return Outcome(committed: endInput(), passThrough: true)
+            } else {
+                let converted = convert(String(math), false)
+                remember(converted)
+                held = ""
+                return Outcome(committed: converted, passThrough: false)
+            }
+        case .other:
             return Outcome(committed: endInput(), passThrough: true)
         }
     }
