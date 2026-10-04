@@ -1,70 +1,76 @@
 import { z } from "zod";
-import type { Tone } from "../pkg/convert";
-import { delimiterNames } from "./delimiters";
+import type { Tone } from "../pkg/convert.js";
+import { delimiterNames } from "./delimiters.ts";
 
+/** name of an emoji skin tone */
 export type SkinTone = keyof typeof Tone;
 
+/** schema of the stored {@link Options} */
 export const optionsSchema = z.object({
-	pruneParens: z.boolean(),
-	vulgarFractions: z.boolean(),
-	scriptFractions: z.boolean(),
-	skinTone: z.enum([
-		"Default",
-		"Light",
-		"MediumLight",
-		"Medium",
-		"MediumDark",
-		"Dark",
-	] satisfies readonly SkinTone[]),
-	delimiter: z.enum(delimiterNames),
-	wholeSite: z.boolean(),
+    pruneParens: z.boolean(),
+    vulgarFractions: z.boolean(),
+    scriptFractions: z.boolean(),
+    skinTone: z.enum([
+        "Default",
+        "Light",
+        "MediumLight",
+        "Medium",
+        "MediumDark",
+        "Dark",
+    ] satisfies readonly SkinTone[]),
+    delimiter: z.enum(delimiterNames),
+    wholeSite: z.boolean(),
 });
 
+/** everything a user can set */
 export type Options = z.infer<typeof optionsSchema>;
 
+/** the options of a fresh install */
 export const defaultOptions: Options = {
-	pruneParens: true,
-	vulgarFractions: true,
-	scriptFractions: true,
-	skinTone: "Default",
-	delimiter: "doubleDollar",
-	wholeSite: false,
+    pruneParens: true,
+    vulgarFractions: true,
+    scriptFractions: true,
+    skinTone: "Default",
+    delimiter: "doubleDollar",
+    wholeSite: false,
 };
 
 // delimiters that were once offered; a stored one means the default now
 const removedDelimiters: readonly unknown[] = ["dollar"];
 
 /**
- * Stored options, with the default for each invalid one. `invalid` lists
- * the options that were replaced, apart from a removed delimiter.
+ * parse stored options, using the default for each invalid one
+ *
+ * @returns the options, and the names of those that were invalid; a removed
+ *   delimiter becomes the default without being listed
  */
 export function parseOptions(stored: Record<string, unknown>): {
-	options: Options;
-	invalid: (keyof Options)[];
+    options: Options;
+    invalid: (keyof Options)[];
 } {
-	const current = removedDelimiters.includes(stored["delimiter"])
-		? { ...stored, delimiter: defaultOptions.delimiter }
-		: stored;
-	const keys = Object.keys(defaultOptions) as (keyof Options)[];
-	const invalid = keys.filter(
-		(key) => !optionsSchema.shape[key].safeParse(current[key]).success,
-	);
-	const options = optionsSchema.parse({
-		...defaultOptions,
-		...current,
-		...Object.fromEntries(invalid.map((key) => [key, defaultOptions[key]])),
-	});
-	return { options, invalid };
+    const current = removedDelimiters.includes(stored["delimiter"])
+        ? { ...stored, delimiter: defaultOptions.delimiter }
+        : stored;
+    const invalid = optionsSchema
+        .keyof()
+        .options.filter(
+            (key) => !optionsSchema.shape[key].safeParse(current[key]).success,
+        );
+    const options = optionsSchema.parse({
+        ...defaultOptions,
+        ...current,
+        ...Object.fromEntries(invalid.map((key) => [key, defaultOptions[key]])),
+    });
+    return { options, invalid };
 }
 
-/** stored options, falling back to the default for any invalid one */
+/** read the stored options, using the default for any invalid one */
 export async function readOptions(): Promise<Options> {
-	const stored = await chrome.storage.sync.get(
-		defaultOptions as unknown as Record<string, unknown>,
-	);
-	const { options, invalid } = parseOptions(stored);
-	if (invalid.length > 0) {
-		console.error("invalid stored options; using defaults for", invalid);
-	}
-	return options;
+    const stored =
+        await chrome.storage.sync.get<Record<string, unknown>>(defaultOptions);
+    const { options, invalid } = parseOptions(stored);
+    if (invalid.length > 0) {
+        console.error("invalid stored options; using defaults for", invalid);
+    }
+    return options;
 }

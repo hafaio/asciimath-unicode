@@ -1,21 +1,39 @@
 {
-	"compilerOptions": {
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
-		"module": "esnext",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"incremental": true,
-		"target": "esnext",
-		"moduleResolution": "bundler",
-		"types": ["chrome", "bun"],
-		"noEmit": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"strict": true,
-		"skipLibCheck": true,
-		"jsx": "react-jsx"
-	},
-	"include": ["src", "pkg/*.js", "pkg/*.d.ts"],
-	"exclude": ["node_modules"]
+    "compilerOptions": {
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "module": "esnext",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "verbatimModuleSyntax": true,
+        "target": "esnext",
+        "moduleResolution": "bundler",
+        "types": ["chrome", "bun", "svelte", "vite/client"],
+        "noEmit": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "erasableSyntaxOnly": true,
+        "noUncheckedSideEffectImports": true,
+        "allowImportingTsExtensions": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "src",
+        "pkg/*.js",
+        "pkg/*.d.ts",
+        "vite.config.ts",
+        "svelte.config.js"
+    ],
+    "exclude": ["node_modules"]
 }
