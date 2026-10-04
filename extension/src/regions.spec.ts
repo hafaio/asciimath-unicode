@@ -77,44 +77,12 @@ describe("completedSpans", () => {
 		expect(completed("$$x$$", "a$$x$$")).toEqual([]);
 	});
 
-	test("other markers need no following character", () => {
+	test("markers need no following character", () => {
 		expect(completed("\\(x\\", "\\(x\\)", "paren")).toEqual(["x"]);
 		expect(completed("`x", "`x`", "backtick")).toEqual(["x"]);
 		expect(completed("a$$x$", "a$$x$$b".slice(0, 6), "doubleDollar")).toEqual([
 			"x",
 		]);
-	});
-
-	describe("single dollar", () => {
-		test("closing at the end of a line", () => {
-			expect(completed("$x", "$x$", "dollar")).toEqual(["x"]);
-		});
-
-		test("closing before a word waits for a boundary", () => {
-			expect(completed("$xy", "$x$y", "dollar")).toEqual([]);
-			expect(completed("$x$y", "$x$ y", "dollar")).toEqual(["x"]);
-		});
-
-		test("deleting the character after the closer", () => {
-			expect(completed("a $x$b", "a $x$", "dollar")).toEqual(["x"]);
-		});
-
-		test("deleting a space after the opener", () => {
-			expect(completed("$ x$", "$x$", "dollar")).toEqual(["x"]);
-		});
-
-		test("a space after an already complete span", () => {
-			expect(completed("$x$", "$x$ ", "dollar")).toEqual([]);
-		});
-
-		test("prices", () => {
-			expect(completed("costs $5 and ", "costs $5 and $", "dollar")).toEqual(
-				[],
-			);
-			expect(completed("costs $5 and $", "costs $5 and $1", "dollar")).toEqual(
-				[],
-			);
-		});
 	});
 
 	describe("inserted text", () => {

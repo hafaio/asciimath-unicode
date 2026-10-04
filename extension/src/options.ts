@@ -31,21 +31,27 @@ export const defaultOptions: Options = {
 	wholeSite: false,
 };
 
+// delimiters that were once offered; a stored one means the default now
+const removedDelimiters: readonly unknown[] = ["dollar"];
+
 /**
  * Stored options, with the default for each invalid one. `invalid` lists
- * the options that were replaced.
+ * the options that were replaced, apart from a removed delimiter.
  */
 export function parseOptions(stored: Record<string, unknown>): {
 	options: Options;
 	invalid: (keyof Options)[];
 } {
+	const current = removedDelimiters.includes(stored["delimiter"])
+		? { ...stored, delimiter: defaultOptions.delimiter }
+		: stored;
 	const keys = Object.keys(defaultOptions) as (keyof Options)[];
 	const invalid = keys.filter(
-		(key) => !optionsSchema.shape[key].safeParse(stored[key]).success,
+		(key) => !optionsSchema.shape[key].safeParse(current[key]).success,
 	);
 	const options = optionsSchema.parse({
 		...defaultOptions,
-		...stored,
+		...current,
 		...Object.fromEntries(invalid.map((key) => [key, defaultOptions[key]])),
 	});
 	return { options, invalid };
