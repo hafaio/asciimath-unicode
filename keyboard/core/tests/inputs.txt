@@ -1,0 +1,28 @@
+sum_(i=1)^n i^3=((n(n+1))/2)^2
+1/2
+1/x
+(x+1)/(y-1)
+7/(8)
+a / s
+sqrt(x^2+1)/alpha
+root 3 x
+x_(2i)^(2j)
+x_(A+B)
+bb R + bbb E + cc L
+hat x + vec v + dot y + overline(xyz)
+text(hello world) "quoted"
+[[a,b],[c,d]]
+[(a,|,b),(c,|,d)]
+|x|/2 + <<x>>/2
+sin x/x + lim_(x->0) f(x)
+int_0^1 f(x) dx
+a <= b != c ~~ d
+:hand: :wave: :thumbsup:
+it is $5
+x^
+sum_
+sqrt
+1/
+sqrt(x^
+"a
+α + β = γ
