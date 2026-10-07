@@ -1,0 +1,11 @@
+[package]
+name = "keyboard-windows-resource"
+version = "0.1.0"
+edition = "2024"
+description = "build script support that gives the Windows keyboard's files their version details"
+repository = "https://github.com/hafacc/asciimath-unicode"
+license = "MIT"
+publish = false
+
+[dependencies]
+embed-resource = "3.0.12"

@@ -2,3 +2,5 @@ node_modules
 /target
 xcuserdata
 /keyboard-mac/build
+/keyboard-windows/installer/obj
+/keyboard-windows/installer/bin
