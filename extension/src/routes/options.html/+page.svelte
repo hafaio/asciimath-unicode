@@ -1,28 +1,29 @@
 <!-- @component the extension's options page -->
 <script lang="ts">
-    import { copy } from "./copy.ts";
-    import { delimiterNames, delimiters } from "./delimiters.ts";
-    import { openShortcutSettings } from "./hotkey.ts";
+    import "../../theme.css";
+    import { copy } from "../../copy.ts";
+    import { delimiterNames, delimiters } from "../../delimiters.ts";
+    import { openShortcutSettings } from "../../hotkey.ts";
     import {
         defaultOptions,
         type Options,
         optionsSchema,
         parseOptions,
         type SkinTone,
-    } from "./options.ts";
+    } from "../../options.ts";
     import {
         outputSwitches,
         useExamples,
         useShortcut,
-    } from "./options-state.svelte.ts";
-    import Section from "./section.svelte";
-    import SwitchRow from "./switch-row.svelte";
-    import Button from "./ui/button.svelte";
-    import Kbd from "./ui/kbd.svelte";
-    import KbdGroup from "./ui/kbd-group.svelte";
-    import ToggleGroup from "./ui/toggle-group.svelte";
-    import ToggleGroupItem from "./ui/toggle-group-item.svelte";
-    import Usage from "./usage.svelte";
+    } from "../../options-state.svelte.ts";
+    import Section from "../../section.svelte";
+    import SwitchRow from "../../switch-row.svelte";
+    import Button from "../../ui/button.svelte";
+    import Kbd from "../../ui/kbd.svelte";
+    import KbdGroup from "../../ui/kbd-group.svelte";
+    import ToggleGroup from "../../ui/toggle-group.svelte";
+    import ToggleGroupItem from "../../ui/toggle-group-item.svelte";
+    import Usage from "../../usage.svelte";
 
     const skinToneEmoji: Record<SkinTone, string> = {
         Default: "👍",
@@ -176,12 +177,11 @@
                             bind:value={
                                 () => options?.delimiter ?? "",
                                 (value) => {
-                                    const parsed =
-                                        optionsSchema.shape.delimiter.safeParse(value);
-                                    if (parsed.success) {
-                                        update({ delimiter: parsed.data });
-                                    }
-                                }
+        const parsed = optionsSchema.shape.delimiter.safeParse(value);
+        if (parsed.success) {
+            update({ delimiter: parsed.data });
+        }
+    }
                             }
                         >
                             {#each delimiterNames as name (name)}
@@ -215,11 +215,11 @@
                         bind:value={
                             () => options?.skinTone ?? "",
                             (value) => {
-                                const parsed = optionsSchema.shape.skinTone.safeParse(value);
-                                if (parsed.success) {
-                                    update({ skinTone: parsed.data });
-                                }
-                            }
+        const parsed = optionsSchema.shape.skinTone.safeParse(value);
+        if (parsed.success) {
+            update({ skinTone: parsed.data });
+        }
+    }
                         }
                     >
                         {#each optionsSchema.shape.skinTone

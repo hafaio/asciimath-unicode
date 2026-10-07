@@ -1,5 +1,6 @@
 <!-- @component a looping animation of math being typed -->
 <script lang="ts">
+    import { prefersReducedMotion } from "svelte/motion";
     import type { Frame } from "./demo-frames.ts";
 
     interface Props {
@@ -11,9 +12,7 @@
 
     const keyDelay = 110;
     const restDelay = 2600;
-    const still = globalThis.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const still = $derived(prefersReducedMotion.current);
 
     let index = $state(0);
     const last = $derived(frames.length - 1);
