@@ -32,8 +32,7 @@
                 <Product
                     name={product.name}
                     description={product.description}
-                    linkLabel={product.linkLabel}
-                    linkUrl={product.linkUrl}
+                    links={product.links}
                 >
                     {#snippet demo()}
                         <Demo frames={product.frames} />

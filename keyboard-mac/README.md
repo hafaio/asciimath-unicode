@@ -5,7 +5,7 @@ A macOS keyboard (an input source) that converts [ascii math](http://asciimath.o
 Ordinary typing passes straight through, so it can stay selected all the time.
 After the opening delimiter (`$$` by default) what you type is held, underlined, and shown converted as you go; the closing delimiter or Return replaces it with the result, and Escape leaves it as typed.
 
-It converts with the same Rust library as the extension, through the small binding in `core/`.
+It converts with the same Rust library as the extension, through the small binding in `../keyboard-core/`.
 
 Building
 --------
@@ -13,7 +13,7 @@ Building
 Needs Xcode and a Rust toolchain (`cargo` in `~/.cargo/bin` or on the `PATH`).
 Open `AsciiMathUnicode.xcodeproj`; everything is done from there, in the AsciiMathUnicode scheme: Build (⌘B) builds the app, running cargo for the Rust library first. Test (⌘U) runs the Swift tests and the Rust library's tests. Archive makes the copy to install or release.
 
-Every build also checks the code and fails on a finding: rustfmt and clippy on `core/`, `swift format` on `Sources` and `Tests` and compiler warnings.
+Every build also checks the code and fails on a finding: rustfmt and clippy on `../keyboard-core/`, `swift format` on `Sources` and `Tests` and compiler warnings.
 
 The app lands in Xcode's build folder (Product › Show Build Folder in Finder).
 Archive and any other Release build are for both kinds of Mac, so they need `rustup target add x86_64-apple-darwin` once.

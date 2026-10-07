@@ -25,7 +25,7 @@ jobs:
       actions: write # dispatch release
     defaults:
       run:
-        working-directory: keyboard
+        working-directory: keyboard-mac
     steps:
     - uses: actions/checkout@v7
       with:

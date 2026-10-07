@@ -3,7 +3,7 @@ on: [ push, pull_request, workflow_call ]
 
 defaults:
   run:
-    working-directory: keyboard
+    working-directory: keyboard-mac
 
 jobs:
   build:

@@ -14,7 +14,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: keyboard
+    working-directory: keyboard-mac
 
 jobs:
   release:
@@ -65,7 +65,7 @@ jobs:
         pkgutil --check-signature "$built"
         # one name for every version, so the latest release's download address never changes
         mv "$built" build/AsciiMathUnicode.pkg
-        echo "path=keyboard/build/AsciiMathUnicode.pkg" >> "$GITHUB_OUTPUT"
+        echo "path=keyboard-mac/build/AsciiMathUnicode.pkg" >> "$GITHUB_OUTPUT"
     - name: notarize
       env:
         API_KEY_BASE64: ${{ secrets.APPLE_API_KEY }}
