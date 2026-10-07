@@ -7,23 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11DA966583FFC01438A83964 /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6889E99732F83D7AE2069CA /* Convert.swift */; };
+		11DA966583FFC01438A83964 /* Composer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6889E99732F83D7AE2069CA /* Composer.swift */; };
 		1A7FA797DA75BB2255868ADB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835914704F8DC49F846C3F2 /* Settings.swift */; };
 		22F7C00FF20F665A0A466700 /* libKeyboardKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9364F04B597DEBAB0203427 /* libKeyboardKit.a */; };
-		256AE65A21A10AD9B94BA55B /* ConvertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665F046CF075B905A8C8CB5F /* ConvertTests.swift */; };
+		256AE65A21A10AD9B94BA55B /* ComposerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665F046CF075B905A8C8CB5F /* ComposerTests.swift */; };
 		25F9DBE581AA1D6D2532F522 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6003CCB9EDF1969352D6A954 /* main.swift */; };
 		45E2C25DD3A64F028E2E1346 /* module.modulemap in CopyFiles */ = {isa = PBXBuildFile; fileRef = 633CE90F5AB70215921A4B40 /* module.modulemap */; };
-		4FB2FA7E111C66586FC6C4D7 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FABEEC215DC7ED77618B7E /* Key.swift */; };
 		684815DB782C683908614E7D /* Delimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2300B7B4B609B67C6875D61A /* Delimiter.swift */; };
 		6948DD2634EE781301220DC3 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC72CCF18922E3FDA35777A4 /* Copy.swift */; };
 		73C840A06354F36D1D2A1424 /* libAsciiMathCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A675425E8745F72AEB9E3D10 /* libAsciiMathCore.a */; };
 		9776F2861E025DDEE374A74B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179037B9821CB452FAC8003D /* SettingsView.swift */; };
-		99E737860827AF9FD08464B6 /* Composer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AE688DEB56073BAD20EAB3 /* Composer.swift */; };
 		9BB526FD99084D8CC607A272 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419B4C91543AB9420ACBD25A /* InputController.swift */; };
 		AA7BCA80A2170CE7F7533345 /* libKeyboardKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9364F04B597DEBAB0203427 /* libKeyboardKit.a */; };
 		AC8F53439EB7729137FDBCC1 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE94804F62A0B026C868465 /* SettingsTests.swift */; };
-		AD6A01E44A86B566E2F5758D /* ComposerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098DA320A93E3E4094AA6C19 /* ComposerTests.swift */; };
-		B20490C7D999F9D80DD55C18 /* KeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF6597CF53AD44F91F5A8EA /* KeyTests.swift */; };
 		B34952520E255B55F2357597 /* asciimath_core.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2B696A8C2EC1D0AC0089CA4B /* asciimath_core.h */; };
 		E28D7F23C7C5F151FBC9B937 /* libAsciiMathCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A675425E8745F72AEB9E3D10 /* libAsciiMathCore.a */; };
 		C1A0000000000000000000B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1A0000000000000000000A1 /* Assets.xcassets */; };
@@ -80,24 +76,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		098DA320A93E3E4094AA6C19 /* ComposerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerTests.swift; sourceTree = "<group>"; };
 		179037B9821CB452FAC8003D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1835914704F8DC49F846C3F2 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2300B7B4B609B67C6875D61A /* Delimiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delimiter.swift; sourceTree = "<group>"; };
 		26A7B34F0948A2755EE23D07 /* KeyboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		29FABEEC215DC7ED77618B7E /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		2B696A8C2EC1D0AC0089CA4B /* asciimath_core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = asciimath_core.h; sourceTree = "<group>"; };
 		30BA41C4D0653B67CDE482C5 /* AsciiMathUnicode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsciiMathUnicode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419B4C91543AB9420ACBD25A /* InputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
 		6003CCB9EDF1969352D6A954 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		633CE90F5AB70215921A4B40 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		665F046CF075B905A8C8CB5F /* ConvertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertTests.swift; sourceTree = "<group>"; };
+		665F046CF075B905A8C8CB5F /* ComposerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerTests.swift; sourceTree = "<group>"; };
 		A675425E8745F72AEB9E3D10 /* libAsciiMathCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAsciiMathCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAF6597CF53AD44F91F5A8EA /* KeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTests.swift; sourceTree = "<group>"; };
-		B6889E99732F83D7AE2069CA /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
+		B6889E99732F83D7AE2069CA /* Composer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composer.swift; sourceTree = "<group>"; };
 		C9364F04B597DEBAB0203427 /* libKeyboardKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKeyboardKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE94804F62A0B026C868465 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
-		F4AE688DEB56073BAD20EAB3 /* Composer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composer.swift; sourceTree = "<group>"; };
 		FC72CCF18922E3FDA35777A4 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
 		C1A0000000000000000000A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1A0000000000000000000A2 /* MenuIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = MenuIcon.tiff; sourceTree = "<group>"; };
@@ -174,9 +166,7 @@
 		4BC32BD158E00F3861DD43C6 /* KeyboardKit */ = {
 			isa = PBXGroup;
 			children = (
-				F4AE688DEB56073BAD20EAB3 /* Composer.swift */,
 				2300B7B4B609B67C6875D61A /* Delimiter.swift */,
-				29FABEEC215DC7ED77618B7E /* Key.swift */,
 				1835914704F8DC49F846C3F2 /* Settings.swift */,
 				D4E000000000000000000001 /* Updates.swift */,
 			);
@@ -216,8 +206,6 @@
 		A57F1FFC254FC408543FD501 /* KeyboardKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				098DA320A93E3E4094AA6C19 /* ComposerTests.swift */,
-				AAF6597CF53AD44F91F5A8EA /* KeyTests.swift */,
 				EBE94804F62A0B026C868465 /* SettingsTests.swift */,
 				D4E000000000000000000003 /* UpdatesTests.swift */,
 			);
@@ -227,7 +215,7 @@
 		AF0BF738985B312BD2266CCB /* AsciiMathCore */ = {
 			isa = PBXGroup;
 			children = (
-				B6889E99732F83D7AE2069CA /* Convert.swift */,
+				B6889E99732F83D7AE2069CA /* Composer.swift */,
 			);
 			path = AsciiMathCore;
 			sourceTree = "<group>";
@@ -235,7 +223,7 @@
 		E87699BC33798892C4BA7FE2 /* AsciiMathCoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				665F046CF075B905A8C8CB5F /* ConvertTests.swift */,
+				665F046CF075B905A8C8CB5F /* ComposerTests.swift */,
 			);
 			path = AsciiMathCoreTests;
 			sourceTree = "<group>";
@@ -541,9 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD6A01E44A86B566E2F5758D /* ComposerTests.swift in Sources */,
-				256AE65A21A10AD9B94BA55B /* ConvertTests.swift in Sources */,
-				B20490C7D999F9D80DD55C18 /* KeyTests.swift in Sources */,
+				256AE65A21A10AD9B94BA55B /* ComposerTests.swift in Sources */,
 				AC8F53439EB7729137FDBCC1 /* SettingsTests.swift in Sources */,
 				D4E000000000000000000013 /* UpdatesTests.swift in Sources */,
 			);
@@ -553,9 +539,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99E737860827AF9FD08464B6 /* Composer.swift in Sources */,
 				684815DB782C683908614E7D /* Delimiter.swift in Sources */,
-				4FB2FA7E111C66586FC6C4D7 /* Key.swift in Sources */,
 				1A7FA797DA75BB2255868ADB /* Settings.swift in Sources */,
 				D4E000000000000000000011 /* Updates.swift in Sources */,
 			);
@@ -565,7 +549,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11DA966583FFC01438A83964 /* Convert.swift in Sources */,
+				11DA966583FFC01438A83964 /* Composer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

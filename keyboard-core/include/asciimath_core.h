@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/* Skin tones, numbered as `asciimath_convert` takes them. */
+/* Skin tones, numbered as `AsciimathOptions.skin_tone` takes them. */
 enum {
     ASCIIMATH_TONE_DEFAULT = 0,
     ASCIIMATH_TONE_LIGHT = 1,
@@ -14,13 +14,58 @@ enum {
     ASCIIMATH_TONE_DARK = 5,
 };
 
+/* Math delimiters, numbered as `AsciimathOptions.delimiter` takes them. */
+enum {
+    ASCIIMATH_DELIMITER_DOUBLE_DOLLAR = 0,
+    ASCIIMATH_DELIMITER_PAREN = 1,
+    ASCIIMATH_DELIMITER_BRACKET = 2,
+    ASCIIMATH_DELIMITER_BACKTICK = 3,
+};
+
+/* Holds what is typed between the math delimiters and converts it. */
+typedef struct AsciimathComposer AsciimathComposer;
+
+/* How math is read and converted. Unknown numbers are the default delimiter and no skin tone. */
+typedef struct {
+    uint8_t delimiter;
+    bool strip_brackets;
+    bool vulgar_fracs;
+    bool script_fracs;
+    uint8_t skin_tone;
+} AsciimathOptions;
+
 /*
- * Convert nul-terminated utf-8 ascii math to unicode. Returns a string to release with
- * `asciimath_free`, or NULL if `input` is NULL or not utf-8.
+ * What the document should show after a key: `committed` replaces what was held, `marked` is the
+ * held text to show underlined after it, and `pass_through` says the app still gets the key.
+ * Release with `asciimath_outcome_free`.
  */
-char *_Nullable asciimath_convert(const char *_Nullable input, bool strip_brackets,
-                                  bool vulgar_fracs, bool script_fracs, uint8_t skin_tone,
-                                  bool placeholders);
+typedef struct {
+    char *_Nonnull committed;
+    char *_Nonnull marked;
+    bool pass_through;
+} AsciimathOutcome;
+
+/* A composer holding nothing, to release with `asciimath_composer_free`. */
+AsciimathComposer *_Nonnull asciimath_composer_new(void);
+
+void asciimath_composer_free(AsciimathComposer *_Nullable composer);
+
+/* Whether any typed text is held, even the first half of an opening delimiter. */
+bool asciimath_composer_is_holding(const AsciimathComposer *_Nullable composer);
+
+/*
+ * Take the key of a macOS key-down event, by its nul-terminated utf-8 characters, its virtual key
+ * code and whether command or control was held. The delimiter in `options` takes effect once
+ * nothing is held. A NULL composer, or characters that are NULL or not utf-8, pass the key through.
+ */
+AsciimathOutcome asciimath_composer_press_mac(AsciimathComposer *_Nullable composer,
+                                              const char *_Nullable characters, uint16_t key_code,
+                                              bool is_shortcut, AsciimathOptions options);
+
+/* Stop holding and return the held text as typed, to release with `asciimath_free`. */
+char *_Nonnull asciimath_composer_end_input(AsciimathComposer *_Nullable composer);
+
+void asciimath_outcome_free(AsciimathOutcome outcome);
 
 void asciimath_free(char *_Nullable text);
 

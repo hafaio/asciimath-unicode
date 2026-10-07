@@ -1,8 +1,8 @@
-//! The C interface to `asciimath-unicode` that the keyboard's Swift code calls
+//! What the keyboards share: converting ascii math and holding what is typed between delimiters
 //!
-//! [`asciimath_convert`] and [`asciimath_free`] are declared for C in `include/asciimath_core.h`.
-//! [`convert`] is the same conversion for Rust callers, and converts as the extension's binding
-//! does when that keeps typed spaces and adds none around operators.
+//! [`Composer`] takes keys and says what the document should show, and [`convert`] converts as the
+//! extension's binding does when that keeps typed spaces and adds none around operators. The
+//! [`ffi`] module is the same for C, which the mac keyboard's Swift code calls.
 #![warn(
     clippy::pedantic,
     clippy::undocumented_unsafe_blocks,
@@ -10,9 +10,16 @@
     unsafe_op_in_unsafe_fn
 )]
 
+mod composer;
+mod delimiter;
+pub mod ffi;
+mod key;
+
+pub use composer::{Composer, Convert, Outcome};
+pub use delimiter::Delimiter;
+pub use key::Key;
+
 use asciimath_unicode::{Conf, Layout, Placeholders, SkinTone};
-use std::ffi::{CStr, CString, c_char};
-use std::ptr;
 
 /// Skin tone by its number in `asciimath_core.h`, where an unknown number is no skin tone
 fn skin_tone(tone: u8) -> SkinTone {
@@ -70,97 +77,8 @@ pub fn convert(
         .to_string()
 }
 
-/// Convert nul-terminated utf-8 ascii math to unicode, for C
-///
-/// This is [`convert`] behind a C signature, with the same options. It returns a nul-terminated
-/// string to release with [`asciimath_free`], or null if `inp` is null or not utf-8.
-///
-/// # Safety
-///
-/// `inp` must be null or point to a nul-terminated string that stays valid for the call.
-#[unsafe(no_mangle)]
-#[allow(clippy::fn_params_excessive_bools)]
-pub unsafe extern "C" fn asciimath_convert(
-    inp: *const c_char,
-    strip_brackets: bool,
-    vulgar_fracs: bool,
-    script_fracs: bool,
-    skin_tone: u8,
-    placeholders: bool,
-) -> *mut c_char {
-    if inp.is_null() {
-        ptr::null_mut()
-    } else {
-        // SAFETY: the caller guarantees a non-null `inp` is a valid nul-terminated string
-        let text = unsafe { CStr::from_ptr(inp) }.to_str();
-        text.ok()
-            .map(|text| {
-                convert(
-                    text,
-                    strip_brackets,
-                    vulgar_fracs,
-                    script_fracs,
-                    skin_tone,
-                    placeholders,
-                )
-            })
-            // the input had no nul, and converting never adds one
-            .and_then(|converted| CString::new(converted).ok())
-            .map_or(ptr::null_mut(), CString::into_raw)
-    }
-}
-
-/// Release a string returned by [`asciimath_convert`]
-///
-/// # Safety
-///
-/// `text` must be null or a pointer from [`asciimath_convert`] that hasn't been released yet.
-#[unsafe(no_mangle)]
-pub unsafe extern "C" fn asciimath_free(text: *mut c_char) {
-    if !text.is_null() {
-        // SAFETY: the caller guarantees `text` came from `CString::into_raw` and is unreleased
-        drop(unsafe { CString::from_raw(text) });
-    }
-}
-
 #[cfg(test)]
 mod tests {
-    use super::{asciimath_convert, asciimath_free};
-    use std::ffi::{CStr, CString};
-    use std::ptr;
-
-    fn convert_through_c(inp: &[u8]) -> Option<String> {
-        let inp = CString::new(inp).unwrap();
-        // SAFETY: `inp` is a valid nul-terminated string and the result is released once
-        unsafe {
-            let raw = asciimath_convert(inp.as_ptr(), true, true, true, 0, false);
-            if raw.is_null() {
-                None
-            } else {
-                let converted = CStr::from_ptr(raw).to_str().unwrap().to_owned();
-                asciimath_free(raw);
-                Some(converted)
-            }
-        }
-    }
-
-    #[test]
-    fn converts() {
-        assert_eq!(convert_through_c(b"1/2").as_deref(), Some("½"));
-        assert_eq!(convert_through_c(b"").as_deref(), Some(""));
-        assert_eq!(convert_through_c("α^2".as_bytes()).as_deref(), Some("α²"));
-    }
-
-    #[test]
-    fn invalid_input_is_null() {
-        assert_eq!(convert_through_c(&[0xff, 0xfe]), None);
-        // SAFETY: null is allowed for both
-        unsafe {
-            assert!(asciimath_convert(ptr::null(), true, true, true, 0, false).is_null());
-            asciimath_free(ptr::null_mut());
-        }
-    }
-
     #[test]
     fn unknown_skin_tone_is_none() {
         assert_eq!(super::convert(":hand:", true, true, true, 200, false), "✋");

@@ -27,6 +27,16 @@ public enum DelimiterName: String, CaseIterable, Sendable {
         }
     }
 
+    /// The delimiter's number in `asciimath_core.h`.
+    public var number: UInt8 {
+        switch self {
+        case .doubleDollar: 0
+        case .paren: 1
+        case .bracket: 2
+        case .backtick: 3
+        }
+    }
+
     /// The markers around an x, as shown in the settings.
     public var display: String {
         "\(open)x\(close)"

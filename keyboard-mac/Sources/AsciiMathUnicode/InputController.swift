@@ -8,15 +8,17 @@ final class InputController: IMKInputController {
     /// The range that makes the client replace the held text, or the selection if none is held.
     private static let heldText = NSRange(location: NSNotFound, length: NSNotFound)
 
-    private var composer = Composer { math, placeholders in
+    private let composer = Composer()
+
+    /// The stored settings, as the composer takes them.
+    private static var options: ComposerOptions {
         let settings = KeyboardKit.Settings(defaults: .standard)
-        return convert(
-            math,
+        return ComposerOptions(
+            delimiter: settings.delimiter.number,
             stripBrackets: settings.pruneParens,
             vulgarFractions: settings.vulgarFractions,
             scriptFractions: settings.scriptFractions,
-            skinTone: settings.skinTone.number,
-            placeholders: placeholders
+            skinTone: settings.skinTone.number
         )
     }
 
@@ -26,14 +28,13 @@ final class InputController: IMKInputController {
 
     override func handle(_ event: NSEvent!, client sender: Any!) -> Bool {
         if let event, event.type == .keyDown, let client = sender as? any IMKTextInput {
-            composer.setDelimiter(KeyboardKit.Settings(defaults: .standard).delimiter)
             let wasHolding = composer.isHolding
             let outcome = composer.press(
-                Key(
-                    characters: event.characters ?? "",
-                    keyCode: Int(event.keyCode),
-                    isShortcut: !event.modifierFlags.isDisjoint(with: [.command, .control])
-                ))
+                characters: event.characters ?? "",
+                keyCode: event.keyCode,
+                isShortcut: !event.modifierFlags.isDisjoint(with: [.command, .control]),
+                options: Self.options
+            )
             if !outcome.committed.isEmpty {
                 client.insertText(outcome.committed, replacementRange: Self.heldText)
             }
