@@ -13,6 +13,8 @@ export const copy = {
     pruneParens: "Drop parentheses that fractions and scripts already imply",
     vulgarFractions: "Use single-character fractions like ½",
     scriptFractions: "Write fractions with super- and subscripts, like ¹⁄₂",
+    keepSpaces: "Keep the spaces you type, like a + b",
+    spacedOperators: "Put spaces around operators, like a + b = c",
     skinTone: "Skin tone for :emoji:",
     skinToneNames: {
         Default: "No skin tone",

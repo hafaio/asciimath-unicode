@@ -33,7 +33,15 @@ fn matches_the_extension_binding() {
                                 number,
                                 false,
                             ),
-                            convert::convert(inp, strip_brackets, vulgar_fracs, script_fracs, tone),
+                            convert::convert(
+                                inp,
+                                strip_brackets,
+                                vulgar_fracs,
+                                script_fracs,
+                                tone,
+                                false,
+                                false,
+                            ),
                             "{inp:?} strip_brackets={strip_brackets} vulgar_fracs={vulgar_fracs} \
                              script_fracs={script_fracs} tone={number}",
                         );

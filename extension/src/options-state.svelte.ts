@@ -1,13 +1,20 @@
 import { currentShortcut, shortcutKeys } from "./hotkey.ts";
 import { convert } from "./message.ts";
 
-type OutputOption = "pruneParens" | "vulgarFractions" | "scriptFractions";
+type OutputOption =
+    | "pruneParens"
+    | "vulgarFractions"
+    | "scriptFractions"
+    | "keepSpaces"
+    | "spacedOperators";
 
 /** each output switch, paired with math whose conversion shows what it changes */
 export const outputSwitches: [OutputOption, string][] = [
     ["pruneParens", "x^(2n)"],
     ["vulgarFractions", "1/2"],
     ["scriptFractions", "(x+1)/(x-1)"],
+    ["keepSpaces", "a + b"],
+    ["spacedOperators", "a+b=c"],
 ];
 
 /** track the shortcut as keys: null when none is set, undefined until known */
