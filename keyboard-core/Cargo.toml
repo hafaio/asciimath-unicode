@@ -12,6 +12,7 @@ crate-type = ["staticlib", "rlib"]
 
 [dependencies]
 asciimath-unicode = "0.5.2"
+unicode-segmentation = "1.13.3"
 
 [dev-dependencies]
 convert = { path = "../extension" }
