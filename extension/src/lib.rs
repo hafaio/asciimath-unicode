@@ -39,15 +39,20 @@ impl From<Tone> for SkinTone {
 /// `strip_brackets` drops brackets that fractions and scripts already imply.
 /// `vulgar_fracs` uses single-character fractions like ½ where one exists, and
 /// `script_fracs` writes the rest with super- and subscripts. `skin_tone` is
-/// given to emoji that take one.
+/// given to emoji that take one. `keep_spaces` writes the whitespace typed
+/// between parts of the math back out, and `spaced_operators` puts a space on
+/// either side of an operator that joins two parts.
 #[must_use]
 #[wasm_bindgen]
+#[allow(clippy::fn_params_excessive_bools)]
 pub fn convert(
     inp: &str,
     strip_brackets: bool,
     vulgar_fracs: bool,
     script_fracs: bool,
     skin_tone: Tone,
+    keep_spaces: bool,
+    spaced_operators: bool,
 ) -> String {
     Conf::default()
         .with_strip_brackets(strip_brackets)
@@ -58,6 +63,8 @@ pub fn convert(
         } else {
             Layout::InlinePlain
         })
+        .with_keep_spaces(keep_spaces)
+        .with_spaced_operators(spaced_operators)
         .parse(inp)
         .to_string()
 }
