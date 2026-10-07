@@ -1,7 +1,7 @@
 {
     "name": "Ascii Math Unicode",
     "description": "Render ascii math as unicode as you type",
-    "version": "4.0.1",
+    "version": "4.1.0",
     "options_page": "out/options.html",
     "permissions": ["activeTab", "scripting", "storage"],
     "optional_host_permissions": ["<all_urls>"],
