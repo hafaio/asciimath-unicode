@@ -1,10 +1,10 @@
 <!-- @component the page presenting the extension and the keyboard -->
 <script lang="ts">
-    import icon from "asciimath-unicode/public/am.svg";
-    import { copy } from "./copy.ts";
-    import Demo from "./demo.svelte";
-    import { extensionFrames, keyboardFrames } from "./demo-frames.ts";
-    import Product from "./product.svelte";
+    import icon from "asciimath-unicode/static/am.svg";
+    import { copy } from "../copy.ts";
+    import Demo from "../demo.svelte";
+    import { extensionFrames, keyboardFrames } from "../demo-frames.ts";
+    import Product from "../product.svelte";
 
     const products = [
         { ...copy.extension, frames: extensionFrames },

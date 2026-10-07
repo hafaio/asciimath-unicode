@@ -6,7 +6,7 @@
             "*.js",
             "*.json",
             "*.ts",
-            "*.html",
+            "src/*.html",
             "src/**/*.ts",
             "src/**/*.svelte"
         ]

@@ -10,7 +10,7 @@
             "*.js",
             "*.json",
             "*.ts",
-            "*.html",
+            "src/*.html",
             "src/**/*.ts",
             "src/**/*.svelte",
             "src/**/*.css"
@@ -289,6 +289,16 @@
                 "rules": {
                     "nursery": {
                         "useExplicitReturnType": "error"
+                    }
+                }
+            }
+        },
+        {
+            "includes": ["start-script.ts"],
+            "linter": {
+                "rules": {
+                    "correctness": {
+                        "noNodejsModules": "off"
                     }
                 }
             }
