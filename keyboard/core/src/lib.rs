@@ -1,8 +1,8 @@
 //! The C interface to `asciimath-unicode` that the keyboard's Swift code calls
 //!
 //! [`asciimath_convert`] and [`asciimath_free`] are declared for C in `include/asciimath_core.h`.
-//! [`convert`] is the same conversion for Rust callers, and takes the options the extension's
-//! binding takes so that the two convert identically.
+//! [`convert`] is the same conversion for Rust callers, and converts as the extension's binding
+//! does when that keeps typed spaces and adds none around operators.
 #![warn(
     clippy::pedantic,
     clippy::undocumented_unsafe_blocks,
@@ -40,6 +40,8 @@ fn skin_tone(tone: u8) -> SkinTone {
 /// - `placeholders` shows the parts that aren't there yet as □, ⸋ and ▫, for math that is still
 ///   being typed
 ///
+/// Whitespace typed between parts of the math is always kept, and none is added around operators.
+///
 /// ```
 /// assert_eq!(keyboard_core::convert("1/2", true, true, true, 0, false), "½");
 /// ```
@@ -63,6 +65,7 @@ pub fn convert(
             Layout::InlinePlain
         })
         .with_placeholders(placeholders.then(Placeholders::default))
+        .with_keep_spaces(true)
         .parse(inp)
         .to_string()
 }
@@ -162,6 +165,12 @@ mod tests {
     fn unknown_skin_tone_is_none() {
         assert_eq!(super::convert(":hand:", true, true, true, 200, false), "✋");
         assert_eq!(super::convert(":hand:", true, true, true, 5, false), "✋🏿");
+    }
+
+    #[test]
+    fn typed_spaces_are_kept() {
+        assert_eq!(super::convert("a + b", true, true, true, 0, false), "a + b");
+        assert_eq!(super::convert("a+b", true, true, true, 0, false), "a+b");
     }
 
     #[test]
