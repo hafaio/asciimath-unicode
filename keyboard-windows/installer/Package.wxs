@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The installer of the Windows keyboard, for every user of a 64-bit machine. The version and
+     the folders of the built files come from AsciiMathUnicode.wixproj. -->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <!-- The UpgradeCode is what a new version finds installed ones by, so it must never change. -->
+  <Package Name="Ascii Math Unicode"
+      Manufacturer="hafa.cc"
+      Version="$(var.Version)"
+      Language="1033"
+      Scope="perMachine"
+      UpgradeStrategy="majorUpgrade"
+      UpgradeCode="AB8A20A5-361A-464B-AD88-FE24C1227823">
+    <!-- Any version replaces any other, by removing it completely first. -->
+    <MajorUpgrade AllowDowngrades="yes" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Property Id="ARPURLINFOABOUT" Value="https://ascii.hafa.cc" />
+    <Property Id="ARPHELPLINK" Value="https://ascii.hafa.cc" />
+    <Property Id="ARPNOMODIFY" Value="1" />
+
+    <!-- The library is loaded in nearly every running app. Left to itself, a silent install
+         closes the apps that have a file it wants to replace or remove, so that is turned off,
+         and with it the restart Windows would otherwise ask for: a library that is in use is
+         removed at the next restart instead. Each version's libraries have a folder of their
+         own, so a new version never has to write over one that is in use. -->
+    <Property Id="MSIRESTARTMANAGERCONTROL" Value="Disable" />
+    <Property Id="REBOOT" Value="ReallySuppress" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="Ascii Math Unicode">
+        <Component Id="Program" Bitness="always64">
+          <File Id="ProgramFile" Source="$(var.Files64)\AsciiMathUnicode.exe" KeyPath="yes" />
+        </Component>
+        <Directory Id="VersionFolder64" Name="$(var.Version)">
+          <Component Id="Library64" Bitness="always64">
+            <File Id="Library64File" Source="$(var.Files64)\asciimath_unicode_tip.dll" KeyPath="yes">
+              <!-- the class id is CLASS_ID in tip/src/ids.rs -->
+              <Class Id="5B01258F-A59A-4C16-BACD-2ACD0BA02944" Context="InprocServer32"
+                  ThreadingModel="apartment" Advertise="no" Description="Ascii Math Unicode" />
+            </File>
+          </Component>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+
+    <!-- 32-bit apps load a library of their own, found through their own view of the registry,
+         which a 32-bit component writes to. -->
+    <StandardDirectory Id="ProgramFilesFolder">
+      <Directory Id="INSTALLFOLDER32" Name="Ascii Math Unicode">
+        <Directory Id="VersionFolder32" Name="$(var.Version)">
+          <Component Id="Library32" Bitness="always32">
+            <File Id="Library32File" Source="$(var.Files32)\asciimath_unicode_tip.dll" KeyPath="yes">
+              <Class Id="5B01258F-A59A-4C16-BACD-2ACD0BA02944" Context="InprocServer32"
+                  ThreadingModel="apartment" Advertise="no" Description="Ascii Math Unicode" />
+            </File>
+          </Component>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+
+    <!-- The program lists the keyboard with Windows and takes it off again. Both run as the
+         installer service, which may write what they write, and without a window. -->
+    <CustomAction Id="Register" FileRef="ProgramFile" ExeCommand="register"
+        Execute="deferred" Impersonate="no" Return="check" />
+    <CustomAction Id="UndoRegister" FileRef="ProgramFile" ExeCommand="unregister"
+        Execute="rollback" Impersonate="no" Return="ignore" />
+    <!-- a failure here must not leave a keyboard that can't be removed -->
+    <CustomAction Id="Unregister" FileRef="ProgramFile" ExeCommand="unregister"
+        Execute="deferred" Impersonate="no" Return="ignore" />
+    <InstallExecuteSequence>
+      <!-- while the program is still there; this is also how an upgrade removes the old version -->
+      <Custom Action="Unregister" Before="RemoveRegistryValues" Condition='REMOVE="ALL"' />
+      <Custom Action="UndoRegister" After="WriteRegistryValues" Condition="NOT Installed" />
+      <Custom Action="Register" After="UndoRegister" Condition='NOT (REMOVE="ALL")' />
+    </InstallExecuteSequence>
+  </Package>
+</Wix>

@@ -1,5 +1,5 @@
-# Build, sign and notarize a tagged version of the keyboard's installer and attach it to a
-# GitHub release; safe to rerun on the same tag.
+# Build a tagged version of the keyboard's installers, the Mac's signed and notarized, and attach
+# both to one GitHub release; safe to rerun on the same tag.
 name: keyboard-release
 on:
   workflow_dispatch:
@@ -9,16 +9,16 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: write # create the GitHub release
-
-defaults:
-  run:
-    working-directory: keyboard-mac
+permissions: {}
 
 jobs:
-  release:
+  mac:
     runs-on: macos-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: keyboard-mac
     steps:
     - uses: actions/checkout@v7
       with:
@@ -77,19 +77,84 @@ jobs:
         xcrun notarytool submit "$installer" --key "$RUNNER_TEMP/notary.p8" --key-id "$API_KEY_ID" \
           --issuer "$API_ISSUER_ID" --wait
         xcrun stapler staple "$installer"
-    - name: create release
-      env:
-        GH_TOKEN: ${{ github.token }}
-        tag: ${{ inputs.tag }}
-        installer: ${{ github.workspace }}/${{ steps.installer.outputs.path }}
-      run: |
-        if gh release view "$tag" > /dev/null 2>&1; then
-          gh release upload "$tag" "$installer" --clobber
-        else
-          gh release create "$tag" --generate-notes --verify-tag --latest "$installer"
-        fi
+    - uses: actions/upload-artifact@v7
+      with:
+        name: mac
+        path: ${{ steps.installer.outputs.path }}
+        if-no-files-found: error
     - name: remove the signing material
       if: always()
       run: |
         security delete-keychain "$RUNNER_TEMP/signing.keychain-db" || true
         rm -f "$RUNNER_TEMP/notary.p8"
+
+  windows:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        ref: ${{ inputs.tag }}
+    - uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: x86_64-pc-windows-msvc, i686-pc-windows-msvc
+    - uses: Swatinem/rust-cache@v2
+    - name: take the version from the tag
+      shell: bash
+      env:
+        tag: ${{ inputs.tag }}
+      run: |
+        version="${tag#keyboard-v}"
+        if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "::error::$tag is not a tag like keyboard-v1.2.3"
+          exit 1
+        fi
+        # the build scripts of the library and the program read this
+        echo "KEYBOARD_VERSION=$version" >> "$GITHUB_ENV"
+    - run: cargo build --release --target x86_64-pc-windows-msvc -p keyboard-windows-tip -p keyboard-windows-app
+    - run: cargo build --release --target i686-pc-windows-msvc -p keyboard-windows-tip
+    # OPTIONAL SIGNING, off unless the repository variable WINDOWS_SIGNING is set to something
+    # other than `none`. Nothing is signed yet: to start, replace this step with one that signs
+    # both copies of asciimath_unicode_tip.dll and AsciiMathUnicode.exe under target/, and the
+    # step after the installer is built with one that signs target/installer/AsciiMathUnicode.msi.
+    - name: sign the library and the program (not set up)
+      if: vars.WINDOWS_SIGNING != '' && vars.WINDOWS_SIGNING != 'none'
+      shell: bash
+      run: |
+        echo "::error::WINDOWS_SIGNING is set, but signing is not set up in this workflow"
+        exit 1
+    - run: dotnet build keyboard-windows/installer -c Release "-p:Version=$env:KEYBOARD_VERSION"
+    - name: sign the installer (not set up)
+      if: vars.WINDOWS_SIGNING != '' && vars.WINDOWS_SIGNING != 'none'
+      shell: bash
+      run: |
+        echo "::error::WINDOWS_SIGNING is set, but signing is not set up in this workflow"
+        exit 1
+    - uses: actions/upload-artifact@v7
+      with:
+        name: windows
+        path: target/installer/AsciiMathUnicode.msi
+        if-no-files-found: error
+
+  publish:
+    needs: [ mac, windows ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub release
+    steps:
+    - uses: actions/download-artifact@v8
+      with:
+        merge-multiple: true
+    - name: create release
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+        tag: ${{ inputs.tag }}
+      # both installers at once, so the latest release never lacks one of them
+      run: |
+        if gh release view "$tag" > /dev/null 2>&1; then
+          gh release upload "$tag" AsciiMathUnicode.pkg AsciiMathUnicode.msi --clobber
+        else
+          gh release create "$tag" --generate-notes --verify-tag --latest AsciiMathUnicode.pkg AsciiMathUnicode.msi
+        fi

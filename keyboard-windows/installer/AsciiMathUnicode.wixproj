@@ -1,0 +1,14 @@
+<!-- Builds AsciiMathUnicode.msi with `dotnet build -c Release -p:Version=1.2.3`, after cargo has
+     built the 64-bit library and program and the 32-bit library in release mode. WiX stays on
+     6.0.x: from 7 on, a build has to accept a licence agreement. -->
+<Project Sdk="WixToolset.Sdk/6.0.2">
+  <PropertyGroup>
+    <OutputName>AsciiMathUnicode</OutputName>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <Version Condition=" '$(Version)' == '' ">0.0.0</Version>
+    <!-- cargo's build folder, which the installer is also written into -->
+    <CargoTarget Condition=" '$(CargoTarget)' == '' ">$(MSBuildProjectDirectory)\..\..\target</CargoTarget>
+    <OutputPath>$(CargoTarget)\installer\</OutputPath>
+    <DefineConstants>$(DefineConstants);Version=$(Version);Files64=$(CargoTarget)\x86_64-pc-windows-msvc\release;Files32=$(CargoTarget)\i686-pc-windows-msvc\release</DefineConstants>
+  </PropertyGroup>
+</Project>

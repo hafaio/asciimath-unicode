@@ -1,6 +1,12 @@
 [workspace]
 resolver = "3"
-members = ["extension", "keyboard-core"]
+members = [
+    "extension",
+    "keyboard-core",
+    "keyboard-windows/tip",
+    "keyboard-windows/app",
+    "keyboard-windows/resource",
+]
 
 [profile.release]
 opt-level = "s"
