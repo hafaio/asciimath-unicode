@@ -1,4 +1,5 @@
 {
+    "extends": "$app/tsconfig",
     "compilerOptions": {
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
@@ -8,7 +9,7 @@
         "verbatimModuleSyntax": true,
         "target": "esnext",
         "moduleResolution": "bundler",
-        "types": ["chrome", "bun", "svelte", "vite/client"],
+        "types": ["chrome", "bun", "svelte", "vite/client", "$app/types"],
         "noEmit": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
@@ -33,7 +34,8 @@
         "pkg/*.js",
         "pkg/*.d.ts",
         "vite.config.ts",
-        "svelte.config.js"
+        "svelte-options.ts",
+        "start-script.ts"
     ],
     "exclude": ["node_modules"]
 }

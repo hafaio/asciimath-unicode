@@ -4,6 +4,7 @@ coverage
 tsconfig.tsbuildinfo
 node_modules
 .cache
+.svelte-kit
 
 # Artifacts #
 #############

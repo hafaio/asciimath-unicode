@@ -7,13 +7,15 @@
     "type": "module",
     "scripts": {
         "fmt": "biome format --write",
-        "dev": "vite",
-        "lint": "svelte-check --fail-on-warnings && biome check --error-on-warnings",
+        "dev": "vite dev",
+        "lint": "svelte-kit sync && svelte-check --fail-on-warnings && biome check --error-on-warnings",
         "build": "vite build",
         "preview": "vite preview"
     },
     "devDependencies": {
         "@biomejs/biome": "^2.5.15",
+        "@sveltejs/adapter-static": "^4.0.0",
+        "@sveltejs/kit": "^3.0.1",
         "@sveltejs/vite-plugin-svelte": "^7.3.1",
         "@tailwindcss/vite": "^4.3.3",
         "asciimath-unicode": "workspace:*",
