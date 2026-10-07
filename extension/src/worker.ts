@@ -52,7 +52,14 @@ chrome.runtime.onMessage.addListener(
             const { text } = parsed.data;
             Promise.all([readOptions(), initialize]).then(
                 ([
-                    { vulgarFractions, scriptFractions, skinTone, pruneParens },
+                    {
+                        vulgarFractions,
+                        scriptFractions,
+                        skinTone,
+                        pruneParens,
+                        keepSpaces,
+                        spacedOperators,
+                    },
                 ]) => {
                     let result: string;
                     try {
@@ -62,6 +69,8 @@ chrome.runtime.onMessage.addListener(
                             vulgarFractions,
                             scriptFractions,
                             Tone[skinTone],
+                            keepSpaces,
+                            spacedOperators,
                         );
                     } catch (err) {
                         console.error(err);

@@ -10,6 +10,8 @@ export const optionsSchema = z.object({
     pruneParens: z.boolean(),
     vulgarFractions: z.boolean(),
     scriptFractions: z.boolean(),
+    keepSpaces: z.boolean(),
+    spacedOperators: z.boolean(),
     skinTone: z.enum([
         "Default",
         "Light",
@@ -30,6 +32,8 @@ export const defaultOptions: Options = {
     pruneParens: true,
     vulgarFractions: true,
     scriptFractions: true,
+    keepSpaces: false,
+    spacedOperators: false,
     skinTone: "Default",
     delimiter: "doubleDollar",
     wholeSite: false,
