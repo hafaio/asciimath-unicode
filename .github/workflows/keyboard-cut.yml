@@ -12,13 +12,18 @@ on:
 permissions: {}
 
 jobs:
-  gate:
+  gate-mac:
     uses: ./.github/workflows/keyboard-build.yml
     permissions:
       contents: read
 
+  gate-windows:
+    uses: ./.github/workflows/keyboard-windows-build.yml
+    permissions:
+      contents: read
+
   cut:
-    needs: gate
+    needs: [ gate-mac, gate-windows ]
     runs-on: ubuntu-latest
     permissions:
       contents: write # push the bump + tag

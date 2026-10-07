@@ -2,7 +2,8 @@
 //!
 //! [`Composer`] takes keys and says what the document should show, and [`convert`] converts as the
 //! extension's binding does when that keeps typed spaces and adds none around operators. The
-//! [`ffi`] module is the same for C, which the mac keyboard's Swift code calls.
+//! [`ffi`] module is the same for C, which the mac keyboard's Swift code calls, and [`Settings`]
+//! is what each keyboard stores in its own way.
 #![warn(
     clippy::pedantic,
     clippy::undocumented_unsafe_blocks,
@@ -14,10 +15,12 @@ mod composer;
 mod delimiter;
 pub mod ffi;
 mod key;
+mod settings;
 
 pub use composer::{Composer, Convert, Outcome};
 pub use delimiter::Delimiter;
 pub use key::Key;
+pub use settings::Settings;
 
 use asciimath_unicode::{Conf, Layout, Placeholders, SkinTone};
 
