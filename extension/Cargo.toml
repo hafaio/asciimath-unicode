@@ -11,5 +11,5 @@ publish = false
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-asciimath-unicode = "0.5"
+asciimath-unicode = "0.5.2"
 wasm-bindgen = "0.2"
