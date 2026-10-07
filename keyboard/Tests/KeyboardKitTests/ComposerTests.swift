@@ -126,12 +126,19 @@ private func type(_ text: String, _ delimiter: DelimiterName = .doubleDollar) ->
     #expect(composer.press(.backspace) == Outcome(marked: "$$‹x›", passThrough: false))
 }
 
-@Test func returnEndsTheLineSoTheTextStaysAsTyped() {
+@Test func returnHandsOverTheFinalText() {
     var composer = makeComposer()
     _ = type(keys("$$x^2"), into: &composer)
-    #expect(composer.press(.enter) == Outcome(committed: "$$x^2", passThrough: true))
+    #expect(composer.press(.enter) == Outcome(committed: "«x^2»", passThrough: false))
     #expect(!composer.isHolding)
-    #expect(type("$$x\ny$$") == Typed(document: "$$x\ny", marked: "$$‹›"))
+    #expect(type("$$x$\ny") == Typed(document: "«x»y"))
+}
+
+@Test func returnWithoutMathEndsTheLine() {
+    var composer = makeComposer()
+    _ = type(keys("$$"), into: &composer)
+    #expect(composer.press(.enter) == Outcome(committed: "$$", passThrough: true))
+    #expect(!composer.isHolding)
 }
 
 @Test func otherKeysLeaveTheTextAsTyped() {
