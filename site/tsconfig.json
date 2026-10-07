@@ -1,9 +1,8 @@
 {
-    "extends": "../extension/tsconfig.json",
+    "extends": ["../extension/tsconfig.base.json", "$app/tsconfig"],
     "compilerOptions": {
-        "types": ["svelte", "vite/client"],
-        "allowImportingTsExtensions": true
+        "types": ["svelte", "vite/client", "$app/types"]
     },
-    "include": ["src", "vite.config.ts", "svelte.config.js"],
+    "include": ["src", "vite.config.ts"],
     "exclude": ["node_modules"]
 }

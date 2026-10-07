@@ -1,22 +1,24 @@
-import { svelte } from "@sveltejs/vite-plugin-svelte";
+import adapter from "@sveltejs/adapter-static";
+import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
+import { externalStartScript } from "./start-script.ts";
+import { svelteOptions } from "./svelte-options.ts";
+
+const pages = "out";
 
 export default defineConfig({
-    // the page is served from inside the extension, not from a site's root
-    base: "./",
-    plugins: [tailwindcss(), svelte()],
+    plugins: [
+        tailwindcss(),
+        sveltekit({
+            ...svelteOptions,
+            adapter: externalStartScript(adapter({ pages }), pages),
+            // chrome refuses to load an extension with a folder starting with an underscore
+            appDir: "app",
+        }),
+    ],
     build: {
-        outDir: "out",
         target: "esnext",
         sourcemap: true,
-        modulePreload: { polyfill: false },
-        rolldownOptions: {
-            input: "options.html",
-            output: {
-                entryFileNames: "[name].js",
-                assetFileNames: "[name].[ext]",
-            },
-        },
     },
 });
