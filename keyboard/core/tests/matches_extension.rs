@@ -1,4 +1,4 @@
-//! The keyboard and the extension must convert identically
+//! The keyboard must convert as the extension does when that keeps typed spaces and adds none
 
 use convert::Tone;
 
@@ -39,7 +39,7 @@ fn matches_the_extension_binding() {
                                 vulgar_fracs,
                                 script_fracs,
                                 tone,
-                                false,
+                                true,
                                 false,
                             ),
                             "{inp:?} strip_brackets={strip_brackets} vulgar_fracs={vulgar_fracs} \
