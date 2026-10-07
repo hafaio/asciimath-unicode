@@ -144,7 +144,8 @@
 			children = (
 				6BFBAD0E085ECC67C776789C /* include */,
 			);
-			path = core;
+			name = core;
+			path = "../keyboard-core";
 			sourceTree = "<group>";
 		};
 		336E1046740D83AD1AA2C97D /* Products */ = {
@@ -465,7 +466,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -eu\n# Xcode runs scripts with a minimal PATH\nexport PATH=\"$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH\"\nif ! command -v cargo >/dev/null; then\n  echo \"error: cargo not found; install Rust from https://rustup.rs\" >&2\n  exit 1\nfi\ncd \"$SRCROOT/..\"\nset -o pipefail\n# Xcode's SYSROOT is the macOS SDK, which clippy would take for Rust's own\nunset SYSROOT\nif ! cargo fmt -p keyboard-core --check; then\n  echo \"error: keyboard/core is not formatted; run: cargo fmt -p keyboard-core\" >&2\n  exit 1\nfi\n# clippy names files relative to the workspace; Xcode only links absolute paths\ncargo clippy -p keyboard-core --all-targets --message-format short -- -D warnings 2>&1 |\n  sed -E \"s#^([^ :]+:[0-9]+:[0-9]+: (error|warning))#$PWD/\\1#\"\n";
+			shellScript = "set -eu\n# Xcode runs scripts with a minimal PATH\nexport PATH=\"$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH\"\nif ! command -v cargo >/dev/null; then\n  echo \"error: cargo not found; install Rust from https://rustup.rs\" >&2\n  exit 1\nfi\ncd \"$SRCROOT/..\"\nset -o pipefail\n# Xcode's SYSROOT is the macOS SDK, which clippy would take for Rust's own\nunset SYSROOT\nif ! cargo fmt -p keyboard-core --check; then\n  echo \"error: keyboard-core is not formatted; run: cargo fmt -p keyboard-core\" >&2\n  exit 1\nfi\n# clippy names files relative to the workspace; Xcode only links absolute paths\ncargo clippy -p keyboard-core --all-targets --message-format short -- -D warnings 2>&1 |\n  sed -E \"s#^([^ :]+:[0-9]+:[0-9]+: (error|warning))#$PWD/\\1#\"\n";
 		};
 		C2B000000000000000000002 /* Lint the Swift sources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -736,7 +737,7 @@
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/core/include";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/../keyboard-core/include";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -925,7 +926,7 @@
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/core/include";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/../keyboard-core/include";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;

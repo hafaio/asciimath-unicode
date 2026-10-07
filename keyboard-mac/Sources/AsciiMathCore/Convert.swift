@@ -2,7 +2,7 @@ import CAsciiMathCore
 
 /// Converts ascii math to unicode.
 ///
-/// This is the Swift face of `asciimath_convert` in the Rust library `keyboard/core`, which the
+/// This is the Swift face of `asciimath_convert` in the Rust library `keyboard-core`, which the
 /// extension's binding mirrors, so both convert the same way. All of `math` is read as math and
 /// every string converts; one that can't cross the C boundary comes back unchanged.
 ///

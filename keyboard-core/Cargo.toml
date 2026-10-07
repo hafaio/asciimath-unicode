@@ -14,4 +14,4 @@ crate-type = ["staticlib", "rlib"]
 asciimath-unicode = "0.5.2"
 
 [dev-dependencies]
-convert = { path = "../../extension" }
+convert = { path = "../extension" }
